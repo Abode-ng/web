@@ -1,0 +1,131 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-600: var(--primary-600);
+  --color-primary-100: var(--primary-100);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-100: var(--accent-100);
+  --color-warmth: var(--warmth);
+  --color-warmth-100: var(--warmth-100);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-1: var(--surface-1);
+  --color-success: var(--success);
+  --color-info: var(--info);
+  --color-ink: var(--ink);
+  --color-ink-600: var(--ink-600);
+  --color-ink-300: var(--ink-300);
+}
+
+:root {
+  --radius: 1rem;
+
+  /* Abode brand */
+  --background: #FBF6EE;          /* surface-0 warm cream */
+  --surface: #FBF6EE;
+  --surface-1: #FFFFFF;
+  --foreground: #211E1A;          /* ink-900 */
+  --ink: #211E1A;
+  --ink-600: #6B6259;
+  --ink-300: #C4BBB0;
+
+  --card: #FFFFFF;
+  --card-foreground: #211E1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #211E1A;
+
+  --primary: #0B3D2E;             /* deep trust green */
+  --primary-foreground: #FBF6EE;
+  --primary-600: #147A5C;
+  --primary-100: #E5F1E9;
+
+  --secondary: #E5F1E9;
+  --secondary-foreground: #0B3D2E;
+
+  --muted: #F3ECDD;
+  --muted-foreground: #6B6259;
+
+  --accent: #E8A020;              /* amber verification */
+  --accent-foreground: #211E1A;
+  --accent-100: #FBF0DA;
+
+  --warmth: #D96F4E;              /* terracotta */
+  --warmth-100: #F9E7DF;
+
+  --success: #1E8E5A;
+  --info: #2E6FB0;
+  --destructive: #C43D3D;
+  --destructive-foreground: #FFFFFF;
+
+  --border: #EDE5D8;
+  --input: #EDE5D8;
+  --ring: #147A5C;
+
+  --shadow-soft: 0 2px 12px rgba(11, 61, 46, 0.06);
+  --shadow-lift: 0 12px 40px -12px rgba(11, 61, 46, 0.18);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: var(--primary-100);
+    color: var(--primary);
+  }
+}
+
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+@utility shadow-lift {
+  box-shadow: var(--shadow-lift);
+}
+
+@utility grain {
+  background-image: radial-gradient(rgba(33, 30, 26, 0.035) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
