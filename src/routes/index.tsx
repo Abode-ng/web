@@ -650,7 +650,7 @@ function FAQ() {
     },
     {
       q: "Where is Abode available?",
-      a: "We're launching in Lekki, Lagos with nannies first, then expanding across Lagos and the other states like Abuja and other states where applicable",
+      a: "We're launching in Lekki, Lagos, then expanding across Lagos and the other states like Abuja and other states where applicable. The expansion is subject to the availability of the service in the area and the willingness of the workers to be verified and listed on the platform.",
     },
     {
       q: "How much does it cost to try?",
