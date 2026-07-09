@@ -650,11 +650,11 @@ function FAQ() {
     },
     {
       q: "Where is Abode available?",
-      a: "We're launching in Lekki, Lagos with nannies first, then expanding across Lagos and the other four categories: housekeepers, cooks, drivers and gatemen.",
+      a: "We're launching in Lekki, Lagos with nannies first, then expanding across Lagos and the other states like Abuja and other states where applicable",
     },
     {
       q: "How much does it cost to try?",
-      a: "Browsing is free. One credit costs ₦5,000 and unlocks one full profile — with savings on 5 and 10-credit packs. Credits never expire.",
+      a: "Browsing is free. One credit costs ₦5,000 and unlocks one full profile — with savings on 5 and 10-credit packs. Credits never expire. Note this pricing is still in review as we are still in the validation phase",
     },
   ];
   return (
