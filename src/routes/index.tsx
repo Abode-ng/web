@@ -60,16 +60,16 @@ function Nav() {
           <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
         </nav>
         <div className="flex items-center gap-2">
-          <a
+          {/* <a
             href="#waitlist"
             className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold hover:bg-primary-600 transition-colors"
           >
             Join the waitlist
             <ArrowRight className="w-4 h-4" />
-          </a>
-          <button className="md:hidden p-2 text-ink" aria-label="Menu">
+          </a> */}
+          {/* <button className="md:hidden p-2 text-ink" aria-label="Menu">
             <Menu className="w-5 h-5" />
-          </button>
+          </button> */}
         </div>
       </div>
     </header>
@@ -96,13 +96,13 @@ function Hero() {
             and every interview visit is on record — for your safety and theirs.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
+            {/* <a
               href="#waitlist"
               className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3.5 text-[15px] font-semibold hover:bg-primary-600 transition-colors shadow-soft"
             >
               Join the waitlist
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </a> */}
             <a
               href="#how"
               className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-1 px-5 py-3.5 text-[15px] font-semibold text-ink hover:border-primary hover:text-primary transition-colors"
@@ -690,42 +690,43 @@ function FAQ() {
 /* ---------------- CTA ---------------- */
 function CTA() {
   return (
-    <section id="waitlist" className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
-      <div className="relative overflow-hidden rounded-[36px] bg-primary text-primary-foreground p-10 lg:p-16 shadow-lift">
-        <div className="absolute -top-20 -right-20 w-80 h-80 bg-accent/25 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -left-16 w-80 h-80 bg-warmth/20 rounded-full blur-3xl" />
-        <div className="relative grid lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
-          <div>
-            <h2 className="font-display font-extrabold tracking-tight text-[36px] leading-[1.05] sm:text-5xl lg:text-6xl">
-              Everyone verified.<br />
-              <span className="text-accent">Everyone protected.</span>
-            </h2>
-            <p className="mt-5 text-primary-foreground/80 text-lg max-w-lg leading-relaxed">
-              Be the first to know when Abode launches in your area. No spam —
-              just one message when we're live.
-            </p>
-          </div>
-          <form
-            className="relative rounded-2xl bg-surface p-3 flex flex-col sm:flex-row gap-2 text-ink"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <input
-              type="tel"
-              required
-              placeholder="+234 80X XXX XXXX"
-              className="flex-1 bg-transparent px-3 py-3 outline-none placeholder:text-ink-300 text-ink"
-            />
-            <button
-              type="submit"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3 font-semibold hover:bg-primary-600 transition-colors"
-            >
-              Join waitlist
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
+    // <section id="waitlist" className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
+    //   <div className="relative overflow-hidden rounded-[36px] bg-primary text-primary-foreground p-10 lg:p-16 shadow-lift">
+    //     <div className="absolute -top-20 -right-20 w-80 h-80 bg-accent/25 rounded-full blur-3xl" />
+    //     <div className="absolute -bottom-24 -left-16 w-80 h-80 bg-warmth/20 rounded-full blur-3xl" />
+    //     <div className="relative grid lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
+    //       <div>
+    //         <h2 className="font-display font-extrabold tracking-tight text-[36px] leading-[1.05] sm:text-5xl lg:text-6xl">
+    //           Everyone verified.<br />
+    //           <span className="text-accent">Everyone protected.</span>
+    //         </h2>
+    //         <p className="mt-5 text-primary-foreground/80 text-lg max-w-lg leading-relaxed">
+    //           Be the first to know when Abode launches in your area. No spam —
+    //           just one message when we're live.
+    //         </p>
+    //       </div>
+    //       <form
+    //         className="relative rounded-2xl bg-surface p-3 flex flex-col sm:flex-row gap-2 text-ink"
+    //         onSubmit={(e) => e.preventDefault()}
+    //       >
+    //         <input
+    //           type="tel"
+    //           required
+    //           placeholder="+234 80X XXX XXXX"
+    //           className="flex-1 bg-transparent px-3 py-3 outline-none placeholder:text-ink-300 text-ink"
+    //         />
+    //         <button
+    //           type="submit"
+    //           className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3 font-semibold hover:bg-primary-600 transition-colors"
+    //         >
+    //           Join waitlist
+    //           <ArrowRight className="w-4 h-4" />
+    //         </button>
+    //       </form>
+    //     </div>
+    //   </div>
+    // </section>
+    null
   );
 }
 
