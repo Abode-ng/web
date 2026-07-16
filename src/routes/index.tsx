@@ -637,6 +637,10 @@ function Pricing() {
 function FAQ() {
   const faqs = [
     {
+      q: "When are you launching on the app on various app stores?",
+      a: "We are currently in the validation phase and we are working hard to launch the app as soon as possible. We will keep you updated on the launch date.",
+    },
+    {
       q: "How does Abode verify workers?",
       a: "Every worker completes an NIN identity check, a live selfie match, a guarantor call by our team, and a document review. A real human on our team signs off before the amber verified badge appears.",
     },
@@ -655,7 +659,7 @@ function FAQ() {
     {
       q: "How much does it cost to try?",
       a: "Browsing is free. One credit costs ₦5,000 and unlocks one full profile — with savings on 5 and 10-credit packs. Credits never expire. Note this pricing is still in review as we are still in the validation phase",
-    },
+    }
   ];
   return (
     <section className="bg-primary-100/50">
