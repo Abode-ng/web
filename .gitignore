@@ -31,3 +31,8 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# local env (keep .env.example tracked)
+.env
+.env.local
+!.env.example

@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { toast } from "sonner";
 import {
   ShieldCheck,
   MapPin,
@@ -13,8 +15,20 @@ import {
   FileCheck,
   Users,
   Wallet,
-  Menu,
+  Mail,
+  Loader2,
+  Home,
+  Briefcase,
+  ClipboardList,
+  ExternalLink,
 } from "lucide-react";
+
+// Google Form survey (shared across all three roles — the form asks which one).
+const SURVEY_URL = "https://forms.gle/babLTMxWtB66mfqSA";
+// Web3Forms access key for the email waitlist. Get a free key at https://web3forms.com
+// (it emails signups straight to your inbox — no backend needed). Set in web/.env:
+//   VITE_WEB3FORMS_ACCESS_KEY=your-key-here
+const WAITLIST_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
 
 import abodeIcon from "@/assets/abode-icon.png";
 import heroNanny from "@/assets/hero-nanny.jpg";
@@ -37,8 +51,9 @@ function Landing() {
       <Categories />
       <SafetySection />
       <Pricing />
+      <Survey />
       <FAQ />
-      <CTA />
+      <Waitlist />
       <Footer />
     </div>
   );
@@ -58,18 +73,16 @@ function Nav() {
           <a href="#verification" className="hover:text-primary transition-colors">Verification</a>
           <a href="#safety" className="hover:text-primary transition-colors">Safety</a>
           <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
+          <a href="#survey" className="hover:text-primary transition-colors">Survey</a>
         </nav>
         <div className="flex items-center gap-2">
-          {/* <a
+          <a
             href="#waitlist"
             className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold hover:bg-primary-600 transition-colors"
           >
             Join the waitlist
             <ArrowRight className="w-4 h-4" />
-          </a> */}
-          {/* <button className="md:hidden p-2 text-ink" aria-label="Menu">
-            <Menu className="w-5 h-5" />
-          </button> */}
+          </a>
         </div>
       </div>
     </header>
@@ -96,13 +109,13 @@ function Hero() {
             and every interview visit is on record — for your safety and theirs.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            {/* <a
+            <a
               href="#waitlist"
               className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3.5 text-[15px] font-semibold hover:bg-primary-600 transition-colors shadow-soft"
             >
               Join the waitlist
               <ArrowRight className="w-4 h-4" />
-            </a> */}
+            </a>
             <a
               href="#how"
               className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-1 px-5 py-3.5 text-[15px] font-semibold text-ink hover:border-primary hover:text-primary transition-colors"
@@ -691,46 +704,176 @@ function FAQ() {
   );
 }
 
-/* ---------------- CTA ---------------- */
-function CTA() {
+/* ---------------- SURVEY ---------------- */
+function Survey() {
+  const roles = [
+    {
+      icon: Home,
+      title: "I'm hiring for my home",
+      body: "Tell us how you hire help today and what would make you trust an app to do it.",
+      tone: "bg-primary-100 text-primary",
+    },
+    {
+      icon: Briefcase,
+      title: "I'm looking for work",
+      body: "Share how you find jobs now and what verification would mean for you.",
+      tone: "bg-warmth-100 text-warmth",
+    },
+    {
+      icon: Users,
+      title: "I'm an agent",
+      body: "Help us shape how agents add workers and earn on every unlock.",
+      tone: "bg-accent-100 text-accent-foreground",
+    },
+  ];
   return (
-    // <section id="waitlist" className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
-    //   <div className="relative overflow-hidden rounded-[36px] bg-primary text-primary-foreground p-10 lg:p-16 shadow-lift">
-    //     <div className="absolute -top-20 -right-20 w-80 h-80 bg-accent/25 rounded-full blur-3xl" />
-    //     <div className="absolute -bottom-24 -left-16 w-80 h-80 bg-warmth/20 rounded-full blur-3xl" />
-    //     <div className="relative grid lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
-    //       <div>
-    //         <h2 className="font-display font-extrabold tracking-tight text-[36px] leading-[1.05] sm:text-5xl lg:text-6xl">
-    //           Everyone verified.<br />
-    //           <span className="text-accent">Everyone protected.</span>
-    //         </h2>
-    //         <p className="mt-5 text-primary-foreground/80 text-lg max-w-lg leading-relaxed">
-    //           Be the first to know when Abode launches in your area. No spam —
-    //           just one message when we're live.
-    //         </p>
-    //       </div>
-    //       <form
-    //         className="relative rounded-2xl bg-surface p-3 flex flex-col sm:flex-row gap-2 text-ink"
-    //         onSubmit={(e) => e.preventDefault()}
-    //       >
-    //         <input
-    //           type="tel"
-    //           required
-    //           placeholder="+234 80X XXX XXXX"
-    //           className="flex-1 bg-transparent px-3 py-3 outline-none placeholder:text-ink-300 text-ink"
-    //         />
-    //         <button
-    //           type="submit"
-    //           className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3 font-semibold hover:bg-primary-600 transition-colors"
-    //         >
-    //           Join waitlist
-    //           <ArrowRight className="w-4 h-4" />
-    //         </button>
-    //       </form>
-    //     </div>
-    //   </div>
-    // </section>
-    null
+    <section id="survey" className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
+      <SectionHeader
+        eyebrow="Help us build it right"
+        title="Take our 3-minute survey."
+        sub="We're in validation. Your answers directly shape what we build first — pick the one that sounds like you."
+        align="center"
+      />
+      <div className="mt-14 grid sm:grid-cols-3 gap-5">
+        {roles.map((r) => (
+          <a
+            key={r.title}
+            href={SURVEY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group rounded-3xl bg-surface-1 border border-border p-7 shadow-soft hover:shadow-lift hover:border-primary/40 transition-all flex flex-col"
+          >
+            <span className={`w-12 h-12 rounded-2xl grid place-items-center ${r.tone}`}>
+              <r.icon className="w-6 h-6" />
+            </span>
+            <h3 className="mt-5 text-lg font-bold text-ink tracking-tight">{r.title}</h3>
+            <p className="mt-2 text-sm text-ink-600 leading-relaxed flex-1">{r.body}</p>
+            <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+              Take the survey
+              <ExternalLink className="w-4 h-4" />
+            </span>
+          </a>
+        ))}
+      </div>
+      <p className="mt-8 text-center text-sm text-ink-600 inline-flex items-center gap-2 w-full justify-center">
+        <ClipboardList className="w-4 h-4" /> Anonymous · takes about 3 minutes · shapes our Lekki pilot
+      </p>
+    </section>
+  );
+}
+
+/* ---------------- WAITLIST ---------------- */
+function Waitlist() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "done">("idle");
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const value = email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    setStatus("loading");
+    try {
+      if (!WAITLIST_ACCESS_KEY) {
+        // No key configured yet — don't pretend it was captured.
+        throw new Error("waitlist-not-configured");
+      }
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WAITLIST_ACCESS_KEY,
+          subject: "New Abode waitlist signup",
+          from_name: "Abode waitlist",
+          email: value,
+          botcheck: "",
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message || "submit-failed");
+      setStatus("done");
+      toast.success("You're on the list! We'll email you when Abode goes live.");
+      setEmail("");
+    } catch (err) {
+      setStatus("idle");
+      if (err instanceof Error && err.message === "waitlist-not-configured") {
+        toast.error("Waitlist isn't connected yet. Add VITE_WEB3FORMS_ACCESS_KEY to go live.");
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    }
+  }
+
+  return (
+    <section id="waitlist" className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
+      <div className="relative overflow-hidden rounded-[36px] bg-primary text-primary-foreground p-10 lg:p-16 shadow-lift">
+        <div className="absolute -top-20 -right-20 w-80 h-80 bg-accent/25 rounded-full blur-3xl" />
+        <div className="absolute -bottom-24 -left-16 w-80 h-80 bg-warmth/20 rounded-full blur-3xl" />
+        <div className="relative grid lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
+          <div>
+            <h2 className="font-display font-extrabold tracking-tight text-[36px] leading-[1.05] sm:text-5xl lg:text-6xl">
+              Everyone verified.<br />
+              <span className="text-accent">Everyone protected.</span>
+            </h2>
+            <p className="mt-5 text-primary-foreground/80 text-lg max-w-lg leading-relaxed">
+              Be the first to know when Abode launches in your area. No spam —
+              just one email when we're live.
+            </p>
+          </div>
+
+          {status === "done" ? (
+            <div className="rounded-2xl bg-surface p-6 text-ink flex items-center gap-4">
+              <span className="w-12 h-12 shrink-0 rounded-full bg-primary-100 grid place-items-center">
+                <CheckCircle2 className="w-6 h-6 text-success" />
+              </span>
+              <div>
+                <p className="font-bold text-ink">You're on the list 🎉</p>
+                <p className="text-sm text-ink-600 mt-0.5">
+                  We'll email you the moment Abode is live in your area.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <form
+              className="relative rounded-2xl bg-surface p-2.5 flex flex-col sm:flex-row gap-2 text-ink shadow-soft"
+              onSubmit={onSubmit}
+            >
+              <div className="flex-1 flex items-center gap-2 px-3">
+                <Mail className="w-4 h-4 text-ink-300 shrink-0" />
+                <input
+                  type="email"
+                  required
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@email.com"
+                  className="flex-1 bg-transparent py-3 outline-none placeholder:text-ink-300 text-ink"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3 font-semibold hover:bg-primary-600 transition-colors disabled:opacity-70"
+              >
+                {status === "loading" ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Joining…
+                  </>
+                ) : (
+                  <>
+                    Join waitlist
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+            </form>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -751,15 +894,30 @@ function Footer() {
         </div>
         <FooterCol
           title="Product"
-          links={["How it works", "Verification", "Safety", "Pricing"]}
+          links={[
+            { label: "How it works", href: "#how" },
+            { label: "Verification", href: "#verification" },
+            { label: "Safety", href: "#safety" },
+            { label: "Pricing", href: "#pricing" },
+          ]}
         />
         <FooterCol
-          title="For workers"
-          links={["Create a profile", "Verification steps", "Get interviews", "Help"]}
+          title="Get involved"
+          links={[
+            { label: "Join the waitlist", href: "#waitlist" },
+            { label: "Take the survey", href: SURVEY_URL, external: true },
+            { label: "For workers", href: SURVEY_URL, external: true },
+            { label: "For agents", href: SURVEY_URL, external: true },
+          ]}
         />
         <FooterCol
           title="Company"
-          links={["About", "Contact", "Privacy", "Terms"]}
+          links={[
+            { label: "Email us", href: "mailto:hello@abode.ng" },
+            { label: "Call support", href: "tel:+2349153120110" },
+            { label: "Privacy", href: "#" },
+            { label: "Terms", href: "#" },
+          ]}
         />
       </div>
       <div className="border-t border-border">
@@ -774,15 +932,25 @@ function Footer() {
   );
 }
 
-function FooterCol({ title, links }: { title: string; links: string[] }) {
+function FooterCol({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string; external?: boolean }[];
+}) {
   return (
     <div>
       <p className="text-sm font-bold text-ink">{title}</p>
       <ul className="mt-3 space-y-2 text-sm text-ink-600">
         {links.map((l) => (
-          <li key={l}>
-            <a href="#" className="hover:text-primary transition-colors">
-              {l}
+          <li key={l.label}>
+            <a
+              href={l.href}
+              {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="hover:text-primary transition-colors"
+            >
+              {l.label}
             </a>
           </li>
         ))}
