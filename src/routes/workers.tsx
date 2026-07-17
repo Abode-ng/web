@@ -13,12 +13,51 @@ import {
   IdCard,
   PhoneCall,
 } from "lucide-react";
-import { SiteNav, SiteFooter, Survey, Waitlist, SectionHeader, SURVEY_URL } from "@/components/site";
+import { SiteNav, SiteFooter, Survey, Waitlist, SectionHeader, FAQ, SURVEY_URL } from "@/components/site";
 import workerImg from "@/assets/housekeeper.jpg";
+
+const WORKERS_DESCRIPTION =
+  "Are you a nanny, cook, housekeeper, driver or gateman? Get verified once on Abode and get real work from families who trust the badge. It's free to join — your identity, guarantor and reputation travel with you.";
 
 export const Route = createFileRoute("/workers")({
   component: WorkersPage,
+  head: () => ({
+    meta: [
+      { title: "Abode for workers — Get verified. Get hired." },
+      { name: "description", content: WORKERS_DESCRIPTION },
+      { property: "og:title", content: "Abode — Get verified. Get hired." },
+      { property: "og:description", content: WORKERS_DESCRIPTION },
+      { name: "twitter:description", content: WORKERS_DESCRIPTION },
+    ],
+  }),
 });
+
+const WORKER_FAQS = [
+  {
+    q: "Does it cost anything to join?",
+    a: "No. Creating your profile and getting verified is completely free. On Abode you only ever get paid — you're never charged.",
+  },
+  {
+    q: "What do I need to get verified?",
+    a: "Your NIN, a quick live selfie, and a guarantor (their name and phone). Our team calls your guarantor within 2 days, then you go live. Most people finish in one sitting.",
+  },
+  {
+    q: "Will homeowners see my address or phone before I accept?",
+    a: "No. Your contact details stay protected. Homeowners reach you through the app, and the interview address is only shared with you after you accept a request.",
+  },
+  {
+    q: "How do I get interview requests?",
+    a: "Once you're verified and set to “Actively looking”, verified homeowners can find you in search and send interview requests. You accept only the ones that work for you.",
+  },
+  {
+    q: "What if I don't want more work right now?",
+    a: "Switch yourself to “Not available” any time and you're hidden from search. Turn it back on whenever you're ready for more requests.",
+  },
+  {
+    q: "An agent added me. Is my profile theirs?",
+    a: "No — you claim and own your profile. The agent who referred you earns a share when you're unlocked, but your account, ratings and reputation are yours.",
+  },
+];
 
 function WorkersPage() {
   return (
@@ -29,6 +68,7 @@ function WorkersPage() {
       <HowItWorks />
       <SafetyForWorkers />
       <Survey />
+      <FAQ items={WORKER_FAQS} title="Questions workers ask." />
       <Waitlist
         role="workers"
         title={

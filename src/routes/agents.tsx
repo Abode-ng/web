@@ -11,11 +11,50 @@ import {
   ShieldCheck,
   Banknote,
 } from "lucide-react";
-import { SiteNav, SiteFooter, Survey, Waitlist, SectionHeader, SURVEY_URL } from "@/components/site";
+import { SiteNav, SiteFooter, Survey, Waitlist, SectionHeader, FAQ, SURVEY_URL } from "@/components/site";
+
+const AGENTS_DESCRIPTION =
+  "Connect domestic workers to families and earn 30–40% of every unlock on their profile — for life, not a one-time fee. Abode handles verification; you get paid to your bank every month.";
 
 export const Route = createFileRoute("/agents")({
   component: AgentsPage,
+  head: () => ({
+    meta: [
+      { title: "Abode for agents — Add workers. Earn for life." },
+      { name: "description", content: AGENTS_DESCRIPTION },
+      { property: "og:title", content: "Abode — Add workers. Earn for life." },
+      { property: "og:description", content: AGENTS_DESCRIPTION },
+      { name: "twitter:description", content: AGENTS_DESCRIPTION },
+    ],
+  }),
 });
+
+const AGENT_FAQS = [
+  {
+    q: "How much do I earn, and for how long?",
+    a: "You earn 30–40% of every unlock on workers you added — for life, not a one-time finder's fee. As long as they're on Abode, you keep earning each time they're unlocked.",
+  },
+  {
+    q: "When and how do I get paid?",
+    a: "Earnings accrue per unlock in your dashboard and are paid to your bank account on the 1st of every month.",
+  },
+  {
+    q: "Do I have to verify the workers myself?",
+    a: "No. You just add their name, phone and role. Our team runs the NIN check, selfie match, guarantor call and document review before they go live.",
+  },
+  {
+    q: "What if a worker I added signs up on their own later?",
+    a: "The referral is matched by phone number and locked to you once they claim their profile — it can't be reassigned to anyone else.",
+  },
+  {
+    q: "How long do workers have to claim their invite?",
+    a: "Unclaimed invites expire after 14 days. After that the pre-created profile is removed and you can re-invite them.",
+  },
+  {
+    q: "Do I need to be verified to add workers?",
+    a: "Yes. Agents complete a quick NIN check first — it protects the families and workers you connect, and earns you the Verified Agent badge.",
+  },
+];
 
 function AgentsPage() {
   return (
@@ -25,6 +64,7 @@ function AgentsPage() {
       <Benefits />
       <HowItWorks />
       <Survey />
+      <FAQ items={AGENT_FAQS} title="Questions agents ask." />
       <Waitlist
         role="agents"
         title={

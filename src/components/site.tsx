@@ -308,6 +308,43 @@ export function Waitlist({
   );
 }
 
+/* ---------------- FAQ (reusable) ---------------- */
+export function FAQ({
+  items,
+  title = "What people ask before signing up.",
+  eyebrow = "Common questions",
+  sub = "",
+}: {
+  items: { q: string; a: string }[];
+  title?: string;
+  eyebrow?: string;
+  sub?: string;
+}) {
+  return (
+    <section id="faq" className="bg-primary-100/50">
+      <div className="mx-auto max-w-3xl px-5 lg:px-8 py-24 lg:py-32">
+        <SectionHeader eyebrow={eyebrow} title={title} sub={sub} align="center" />
+        <div className="mt-12 space-y-3">
+          {items.map((f) => (
+            <details
+              key={f.q}
+              className="group rounded-2xl bg-surface-1 border border-border p-5 open:shadow-soft transition-shadow"
+            >
+              <summary className="flex items-center justify-between gap-4 cursor-pointer list-none">
+                <span className="font-semibold text-ink">{f.q}</span>
+                <span className="w-8 h-8 rounded-full bg-primary-100 text-primary grid place-items-center text-xl leading-none group-open:rotate-45 transition-transform">
+                  +
+                </span>
+              </summary>
+              <p className="mt-3 text-ink-600 leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------- FOOTER ---------------- */
 export function SiteFooter() {
   return (

@@ -14,7 +14,7 @@ import {
   Wallet,
 } from "lucide-react";
 
-import { SiteNav, SiteFooter, Survey, Waitlist, SectionHeader } from "@/components/site";
+import { SiteNav, SiteFooter, Survey, Waitlist, SectionHeader, FAQ } from "@/components/site";
 import heroNanny from "@/assets/hero-nanny.jpg";
 import cookImg from "@/assets/cook.jpg";
 import gatemanImg from "@/assets/gateman.jpg";
@@ -36,7 +36,7 @@ function Landing() {
       <SafetySection />
       <Pricing />
       <Survey />
-      <FAQ />
+      <FAQ items={HOMEOWNER_FAQS} />
       <Waitlist />
       <SiteFooter />
     </div>
@@ -455,20 +455,63 @@ function SafetySection() {
             <p className="mt-4 text-ink leading-relaxed">
               Tuesday, 3:00 PM · Chidinma O. · Lekki Phase 1
             </p>
-            <div className="mt-4 rounded-2xl overflow-hidden border border-border bg-surface aspect-[16/9] relative">
-              <div className="absolute inset-0 grain opacity-60" />
-              <svg viewBox="0 0 400 220" className="w-full h-full">
-                <defs>
-                  <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#EDE5D8" strokeWidth="1" />
-                  </pattern>
-                </defs>
-                <rect width="400" height="220" fill="url(#grid)" />
-                <path d="M40 180 Q140 60 220 120 T380 40" stroke="#147A5C" strokeWidth="2.5" fill="none" strokeDasharray="4 6" />
-                <circle cx="40" cy="180" r="8" fill="#2E6FB0" />
-                <circle cx="40" cy="180" r="14" fill="#2E6FB0" opacity="0.2" />
-                <circle cx="380" cy="40" r="8" fill="#0B3D2E" />
-                <circle cx="380" cy="40" r="14" fill="#0B3D2E" opacity="0.2" />
+            <div className="mt-4 rounded-2xl overflow-hidden border border-border bg-[#FBF6EE] aspect-[6/5] relative">
+              <svg viewBox="0 0 360 300" className="w-full h-full" role="img" aria-label="Logged interview route from home to the worker">
+                <rect width="360" height="300" fill="#FBF6EE" />
+                {/* block / green-space tints */}
+                <rect x="205" y="152" width="128" height="96" rx="10" fill="#EAF0E6" />
+                <rect x="28" y="28" width="92" height="80" rx="10" fill="#F2EDE1" />
+                <rect x="270" y="20" width="70" height="60" rx="10" fill="#F2EDE1" />
+
+                {/* minor roads */}
+                <g stroke="#ECE3D4" strokeWidth="3" strokeLinecap="round">
+                  <path d="M0 45 H360" />
+                  <path d="M0 150 H360" />
+                  <path d="M0 255 H360" />
+                  <path d="M40 0 V300" />
+                  <path d="M175 0 V300" />
+                  <path d="M320 0 V300" />
+                  <path d="M95 150 L175 205" />
+                  <path d="M255 95 L320 45" />
+                </g>
+                {/* major roads */}
+                <g stroke="#E4DAC8" strokeWidth="8" strokeLinecap="round">
+                  <path d="M0 95 H360" />
+                  <path d="M255 0 V300" />
+                  <path d="M95 0 V300" />
+                  <path d="M0 205 H360" />
+                </g>
+                {/* centre-line dashes on the main roads */}
+                <g stroke="#FBF6EE" strokeWidth="1.2" strokeDasharray="7 7">
+                  <path d="M0 95 H360" />
+                  <path d="M255 0 V300" />
+                </g>
+
+                {/* street names */}
+                <g fill="#B9AE9B" fontFamily="Plus Jakarta Sans, sans-serif" fontSize="9" fontWeight={600}>
+                  <text x="16" y="90">Fola Osibo</text>
+                  <text x="188" y="200">Bisola Durosinmi</text>
+                  <text x="248" y="145" transform="rotate(-90 248 145)">Admiralty Way</text>
+                </g>
+
+                {/* route: halo + line */}
+                <path d="M120 262 L120 207 L176 207 L176 96 L255 96 L255 58" fill="none" stroke="#147A5C" strokeOpacity="0.16" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M120 262 L120 207 L176 207 L176 96 L255 96 L255 58" fill="none" stroke="#147A5C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+
+                {/* worker pin (destination, top) */}
+                <circle cx="255" cy="55" r="15" fill="#0B3D2E" opacity="0.18" />
+                <circle cx="255" cy="55" r="8" fill="#0B3D2E" stroke="#fff" strokeWidth="2.5" />
+                {/* home pin (start, bottom) */}
+                <circle cx="120" cy="265" r="15" fill="#2E6FB0" opacity="0.18" />
+                <circle cx="120" cy="265" r="8" fill="#2E6FB0" stroke="#fff" strokeWidth="2.5" />
+
+                {/* pin labels */}
+                <g fontFamily="Plus Jakarta Sans, sans-serif" fontSize="10" fontWeight={700}>
+                  <rect x="146" y="255" width="58" height="20" rx="7" fill="#fff" stroke="#EDE5D8" />
+                  <text x="175" y="268.5" textAnchor="middle" fill="#211E1A">Home</text>
+                  <rect x="146" y="45" width="100" height="20" rx="7" fill="#fff" stroke="#EDE5D8" />
+                  <text x="196" y="58.5" textAnchor="middle" fill="#211E1A">Interview address</text>
+                </g>
               </svg>
             </div>
             <div className="mt-4 flex items-center justify-between text-sm">
@@ -595,60 +638,30 @@ function Pricing() {
   );
 }
 
-/* ---------------- FAQ ---------------- */
-function FAQ() {
-  const faqs = [
-    {
-      q: "When are you launching on the app on various app stores?",
-      a: "We are currently in the validation phase and we are working hard to launch the app as soon as possible. We will keep you updated on the launch date.",
-    },
-    {
-      q: "How does Abode verify workers?",
-      a: "Every worker completes an NIN identity check, a live selfie match, a guarantor call by our team, and a document review. A real human on our team signs off before the amber verified badge appears.",
-    },
-    {
-      q: "What if the worker doesn't respond to my interview request?",
-      a: "If a worker doesn't accept within 48 hours, your credit is automatically refunded to your wallet. Unlocks are atomic — you never pay for a profile we can't deliver.",
-    },
-    {
-      q: "Is location logging safe? What data is stored?",
-      a: "Location logging protects both sides. We record that a visit took place, at what address, and roughly when — never continuous tracking. Both parties consent before an interview is confirmed.",
-    },
-    {
-      q: "Where is Abode available?",
-      a: "We're launching in Lekki, Lagos, then expanding across Lagos and the other states like Abuja and other states where applicable. The expansion is subject to the availability of the service in the area and the willingness of the workers to be verified and listed on the platform.",
-    },
-    {
-      q: "How much does it cost to try?",
-      a: "Browsing is free. One credit costs ₦5,000 and unlocks one full profile — with savings on 5 and 10-credit packs. Credits never expire. Note this pricing is still in review as we are still in the validation phase",
-    },
-  ];
-  return (
-    <section className="bg-primary-100/50">
-      <div className="mx-auto max-w-3xl px-5 lg:px-8 py-24 lg:py-32">
-        <SectionHeader
-          eyebrow="Common questions"
-          title="What people ask before signing up."
-          sub=""
-          align="center"
-        />
-        <div className="mt-12 space-y-3">
-          {faqs.map((f) => (
-            <details
-              key={f.q}
-              className="group rounded-2xl bg-surface-1 border border-border p-5 open:shadow-soft transition-shadow"
-            >
-              <summary className="flex items-center justify-between gap-4 cursor-pointer list-none">
-                <span className="font-semibold text-ink">{f.q}</span>
-                <span className="w-8 h-8 rounded-full bg-primary-100 text-primary grid place-items-center text-xl leading-none group-open:rotate-45 transition-transform">
-                  +
-                </span>
-              </summary>
-              <p className="mt-3 text-ink-600 leading-relaxed">{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+/* ---------------- FAQ DATA (homeowner) ---------------- */
+const HOMEOWNER_FAQS = [
+  {
+    q: "When are you launching on the app stores?",
+    a: "We are currently in the validation phase and working hard to launch as soon as possible. Join the waitlist and we'll email you the launch date.",
+  },
+  {
+    q: "How does Abode verify workers?",
+    a: "Every worker completes an NIN identity check, a live selfie match, a guarantor call by our team, and a document review. A real human on our team signs off before the amber verified badge appears.",
+  },
+  {
+    q: "What if the worker doesn't respond to my interview request?",
+    a: "If a worker doesn't accept within 48 hours, your credit is automatically refunded to your wallet. Unlocks are atomic — you never pay for a profile we can't deliver.",
+  },
+  {
+    q: "Is location logging safe? What data is stored?",
+    a: "Location logging protects both sides. We record that a visit took place, at what address, and roughly when — never continuous tracking. Both parties consent before an interview is confirmed.",
+  },
+  {
+    q: "Where is Abode available?",
+    a: "We're launching in Lekki, Lagos, then expanding across Lagos and to other states like Abuja where applicable. Expansion depends on demand and on verified workers being available in the area.",
+  },
+  {
+    q: "How much does it cost to try?",
+    a: "Browsing is free. One credit costs ₦5,000 and unlocks one full profile — with savings on 5 and 10-credit packs. Credits never expire. Pricing is still in review while we're in validation.",
+  },
+];
