@@ -18,7 +18,6 @@ import {
   Smartphone,
   Wallet,
   Inbox,
-  RotateCcw,
 } from "lucide-react";
 import {
   SiteNav,
@@ -436,8 +435,8 @@ function ApplyingSection() {
                 t: "If you applied, accepting an interview costs nothing extra",
               },
               {
-                icon: RotateCcw,
-                t: "If the family never responds before the job closes, your credits come back automatically",
+                icon: ShieldCheck,
+                t: "Every job was paid for by a real family — no fake listings, no time wasted",
               },
             ].map((r) => (
               <li key={r.t} className="flex items-start gap-3 text-ink">
@@ -471,11 +470,12 @@ function ApplyingSection() {
             ))}
           </div>
           <div className="mt-6 rounded-xl bg-primary-100/70 border border-primary/20 p-3.5 text-sm text-ink flex items-start gap-2.5">
-            <RotateCcw className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-primary mt-0.5 shrink-0" />
             <span>
-              <span className="font-semibold">You're protected.</span> If the family never looks at
-              your application before the job closes or expires, your credits are refunded
-              automatically.
+              <span className="font-semibold">Why it costs anything.</span> Families pay ₦5,000 to
+              post a job, so every listing you see is real and funded. Credits are spent when you
+              apply — so pick the jobs that genuinely fit you, and your application lands in a short
+              list a family actually reads.
             </span>
           </div>
         </div>
@@ -559,7 +559,7 @@ const WORKER_FAQS = [
   },
   {
     q: "Why do I have to pay to apply?",
-    a: "Because it keeps applications serious on both sides. Since you paid to apply, the family reviews your application for free and actually looks at it — you're not one of 200 random messages. Credits start at ₦100 each, applications cost 2–12 credits depending on the salary, and if the family never responds before the job closes your credits are refunded automatically.",
+    a: "Because it keeps applications serious on both sides. Since you paid to apply, the family reviews your application for free and actually looks at it — you're not one of 200 random messages. And because the family paid ₦5,000 to post the job, you know every listing is real. Credits start at ₦100 each and applications cost 2–12 credits depending on the salary offered, so choose the jobs that genuinely fit you.",
   },
   {
     q: "What do I need to get verified?",
