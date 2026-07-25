@@ -1,43 +1,69 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ShieldCheck,
-  MapPin,
   BadgeCheck,
   Sparkles,
-  Bookmark,
-  Star,
   ArrowRight,
-  Lock,
   CheckCircle2,
-  FileCheck,
   Users,
-  Wallet,
+  Home,
+  Briefcase,
+  Building2,
+  Gauge,
+  Layers,
+  Fingerprint,
+  History,
+  Repeat,
+  Star,
+  MessageSquareX,
+  NotebookPen,
+  ArrowUpRight,
 } from "lucide-react";
 
 import { SiteNav, SiteFooter, Survey, Waitlist, SectionHeader, FAQ } from "@/components/site";
-import heroNanny from "@/assets/hero-nanny.jpg";
-import cookImg from "@/assets/cook.jpg";
-import gatemanImg from "@/assets/gateman.jpg";
-import housekeeperImg from "@/assets/housekeeper.jpg";
+
+const PLATFORM_DESCRIPTION =
+  "Abode is the trust infrastructure for Nigeria's domestic workforce — verified identity, portable reputation and real employment records, powering a hiring marketplace for homeowners and AgencyOS, the software recruitment agencies run on.";
 
 export const Route = createFileRoute("/")({
-  component: Landing,
+  component: PlatformPage,
+  head: () => ({
+    meta: [
+      { title: "Abode — Trust infrastructure for Nigerian homes, workers & agencies" },
+      { name: "description", content: PLATFORM_DESCRIPTION },
+      { property: "og:title", content: "Abode — The trust layer for Nigeria's domestic workforce" },
+      { property: "og:description", content: PLATFORM_DESCRIPTION },
+      { name: "twitter:description", content: PLATFORM_DESCRIPTION },
+    ],
+  }),
 });
 
-function Landing() {
+function PlatformPage() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
-      <SiteNav active="homeowner" />
+      <SiteNav active="platform" />
       <Hero />
       <TrustStrip />
-      <HowItWorks />
-      <VerificationSection />
-      <Categories />
-      <SafetySection />
-      <Pricing />
+      <TheShift />
+      <ThreeGroups />
+      <TwoProducts />
+      <TrustLayer />
+      <TrustScore />
+      <PortableReputation />
+      <Vision />
       <Survey />
-      <FAQ items={HOMEOWNER_FAQS} />
-      <Waitlist />
+      <FAQ items={PLATFORM_FAQS} title="Questions about the platform." />
+      <Waitlist
+        role="platform"
+        title={
+          <>
+            Verified identity.
+            <br />
+            <span className="text-accent">Portable reputation.</span>
+          </>
+        }
+        sub="Abode is in validation. Join the waitlist and we'll tell you the moment your side of the platform opens."
+      />
       <SiteFooter />
     </div>
   );
@@ -47,20 +73,21 @@ function Landing() {
 function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8 pt-14 pb-20 lg:pt-24 lg:pb-32 grid lg:grid-cols-[1.05fr_1fr] gap-14 lg:gap-20 items-center">
-        <div>
+      <div className="mx-auto max-w-6xl px-5 lg:px-8 pt-14 pb-20 lg:pt-24 lg:pb-28">
+        <div className="max-w-3xl">
           <span className="inline-flex items-center gap-2 rounded-full bg-primary-100 text-primary px-3 py-1.5 text-xs font-semibold tracking-wide">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            Launching in Lekki, Lagos
+            <Layers className="w-3.5 h-3.5" />
+            Two products. One trust layer.
           </span>
-          <h1 className="mt-6 font-display font-extrabold tracking-tight text-primary text-[44px] leading-[1.05] sm:text-6xl lg:text-[68px] lg:leading-[1.02]">
-            Your home.<br />
-            <span className="text-warmth">Trusted hands.</span>
+          <h1 className="mt-6 font-display font-extrabold tracking-tight text-primary text-[40px] leading-[1.06] sm:text-[56px] lg:text-[64px] lg:leading-[1.04]">
+            The trust infrastructure for Nigerian homes,{" "}
+            <span className="text-warmth">workers &amp; recruitment agencies.</span>
           </h1>
-          <p className="mt-6 text-lg text-ink-600 max-w-xl leading-relaxed">
-            Abode is the verified way to hire nannies, cooks, housekeepers,
-            drivers and gatemen. Every worker is NIN-checked, guarantor-confirmed,
-            and every interview visit is on record — for your safety and theirs.
+          <p className="mt-6 text-lg text-ink-600 max-w-2xl leading-relaxed">
+            Nigeria's domestic workforce runs on WhatsApp groups, word of mouth and paper files — so
+            nobody can prove who anyone is. Abode builds the layer underneath it: verified identity,
+            portable reputation and real employment records, powering a hiring marketplace for
+            families and the software agencies run their whole operation on.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
@@ -70,179 +97,99 @@ function Hero() {
               Join the waitlist
               <ArrowRight className="w-4 h-4" />
             </a>
-            <a
-              href="#how"
+            <Link
+              to="/agencies"
               className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-1 px-5 py-3.5 text-[15px] font-semibold text-ink hover:border-primary hover:text-primary transition-colors"
             >
-              See how it works
-            </a>
-          </div>
-          <div className="mt-10 flex items-center gap-6 text-sm text-ink-600">
-            <div className="flex items-center gap-2">
-              <BadgeCheck className="w-5 h-5 text-accent" />
-              <span>NIN verified</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Users className="w-5 h-5 text-primary-600" />
-              <span>Guarantor checked</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-info" />
-              <span>Every visit logged</span>
-            </div>
+              Explore AgencyOS
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
 
-        {/* Phone mock */}
-        <div className="relative mx-auto lg:mx-0">
-          <div className="absolute -inset-6 -z-10 bg-gradient-to-br from-warmth-100 via-accent-100 to-primary-100 rounded-[48px] blur-2xl opacity-70" />
-          <PhoneFrame>
-            <PhonePreview />
-          </PhoneFrame>
-          <FloatingBadge
-            className="absolute -left-4 top-16 sm:-left-10"
-            icon={<ShieldCheck className="w-4 h-4" />}
-            label="NIN verified"
-            tone="primary"
-          />
-          <FloatingBadge
-            className="absolute -right-2 bottom-24 sm:-right-8"
-            icon={<MapPin className="w-4 h-4" />}
-            label="Visit logged"
-            tone="info"
-          />
-        </div>
+        <StackDiagram />
       </div>
     </section>
   );
 }
 
-function FloatingBadge({
-  icon,
-  label,
-  tone,
-  className = "",
-}: {
-  icon: React.ReactNode;
-  label: string;
-  tone: "primary" | "info" | "accent";
-  className?: string;
-}) {
-  const styles = {
-    primary: "bg-surface-1 text-primary border-primary-100",
-    info: "bg-surface-1 text-info border-[#DDEAF6]",
-    accent: "bg-accent-100 text-primary border-accent/40",
-  }[tone];
+/** The infrastructure story as a stack: audiences → products → trust layer. */
+function StackDiagram() {
+  const audiences = [
+    { icon: Home, label: "Homeowners", tone: "text-primary bg-primary-100" },
+    { icon: Briefcase, label: "Workers", tone: "text-warmth bg-warmth-100" },
+    { icon: Building2, label: "Agencies", tone: "text-accent-foreground bg-accent-100" },
+  ];
   return (
-    <div
-      className={`${className} inline-flex items-center gap-2 rounded-full border ${styles} px-3.5 py-2 text-xs font-semibold shadow-lift`}
-    >
-      {icon}
-      {label}
-    </div>
-  );
-}
-
-function PhoneFrame({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="relative w-[300px] sm:w-[340px] rounded-[44px] bg-[#0B3D2E] p-3 shadow-lift">
-      <div className="relative rounded-[34px] overflow-hidden bg-surface aspect-[9/19.5]">
-        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-5 bg-[#0B3D2E] rounded-full z-10" />
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function PhonePreview() {
-  return (
-    <div className="h-full w-full flex flex-col bg-surface">
-      {/* status */}
-      <div className="pt-8 pb-3 px-5 flex items-center justify-between text-[11px] font-semibold text-ink">
-        <span>9:41</span>
-        <span>••• ▲</span>
-      </div>
-      {/* header */}
-      <div className="px-5 pb-3 flex items-center justify-between">
-        <div>
-          <p className="text-[11px] text-ink-600">Good morning,</p>
-          <p className="text-[15px] font-bold text-ink">Tolu</p>
-        </div>
-        <div className="inline-flex items-center gap-1.5 bg-accent-100 text-accent-foreground rounded-full pl-1 pr-3 py-1">
-          <span className="w-6 h-6 rounded-full bg-accent text-white grid place-items-center text-[11px] font-bold">3</span>
-          <span className="text-[11px] font-semibold">credits</span>
-        </div>
-      </div>
-      {/* search */}
-      <div className="px-5">
-        <div className="rounded-xl bg-surface-1 border border-border px-3 py-2.5 text-[12px] text-ink-600">
-          Search by role or area…
-        </div>
-      </div>
-      {/* chips */}
-      <div className="px-5 mt-3 flex gap-2 overflow-hidden">
-        {["Nanny", "Housekeeper", "Cook", "Driver"].map((c, i) => (
-          <span
-            key={c}
-            className={`text-[11px] font-semibold rounded-full px-3 py-1.5 whitespace-nowrap ${
-              i === 0
-                ? "bg-primary text-primary-foreground"
-                : "bg-surface-1 border border-border text-ink-600"
-            }`}
+    <div className="mt-16 lg:mt-20">
+      {/* audiences */}
+      <div className="grid grid-cols-3 gap-3 sm:gap-5">
+        {audiences.map((a) => (
+          <div
+            key={a.label}
+            className="rounded-2xl bg-surface-1 border border-border px-3 py-4 sm:px-5 shadow-soft flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-center"
           >
-            {c}
-          </span>
+            <span className={`w-9 h-9 shrink-0 rounded-xl grid place-items-center ${a.tone}`}>
+              <a.icon className="w-4.5 h-4.5" />
+            </span>
+            <span className="text-[13px] sm:text-[15px] font-bold text-ink">{a.label}</span>
+          </div>
         ))}
       </div>
 
-      {/* worker card locked */}
-      <div className="mx-5 mt-4 rounded-2xl bg-surface-1 border border-border overflow-hidden shadow-soft">
-        <div className="relative">
-          <img src={heroNanny} alt="" className="w-full h-40 object-cover" loading="lazy" />
-          <div className="absolute top-2 left-2 inline-flex items-center gap-1 bg-accent-100 text-accent-foreground rounded-full pl-1 pr-2 py-0.5 text-[10px] font-bold">
-            <BadgeCheck className="w-3 h-3 text-accent" fill="currentColor" />
-            Verified
-          </div>
-          <button className="absolute top-2 right-2 bg-surface-1/90 rounded-full p-1.5">
-            <Bookmark className="w-3.5 h-3.5 text-ink" />
-          </button>
+      <Connector />
+
+      {/* products */}
+      <div className="grid sm:grid-cols-2 gap-3 sm:gap-5">
+        <div className="rounded-2xl border border-primary/25 bg-primary-100/70 p-5 text-center">
+          <p className="text-xs font-bold uppercase tracking-wider text-primary-600">Product 01</p>
+          <p className="mt-1.5 text-xl font-extrabold text-primary">Marketplace</p>
+          <p className="mt-1 text-[13px] text-ink-600">Homeowners hire · workers get work</p>
         </div>
-        <div className="p-3">
-          <div className="flex items-center justify-between">
-            <p className="text-[13px] font-bold text-ink">Chidinma O.</p>
-            <div className="flex items-center gap-0.5 text-[11px] font-semibold text-ink">
-              <Star className="w-3 h-3 fill-accent text-accent" />
-              4.8
-              <span className="text-ink-600 font-normal">·12</span>
+        <div className="rounded-2xl border border-accent/40 bg-accent-100/70 p-5 text-center">
+          <p className="text-xs font-bold uppercase tracking-wider text-accent-foreground/70">
+            Product 02
+          </p>
+          <p className="mt-1.5 text-xl font-extrabold text-primary">AgencyOS</p>
+          <p className="mt-1 text-[13px] text-ink-600">The software agencies run on</p>
+        </div>
+      </div>
+
+      <Connector />
+
+      {/* trust layer */}
+      <div className="rounded-3xl bg-primary text-primary-foreground p-7 lg:p-9 shadow-lift">
+        <div className="flex items-center justify-center gap-2.5">
+          <ShieldCheck className="w-5 h-5 text-accent" />
+          <p className="font-display text-lg sm:text-xl font-extrabold tracking-tight">
+            The Abode trust layer
+          </p>
+        </div>
+        <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {[
+            { icon: Fingerprint, label: "Verified identity" },
+            { icon: Star, label: "Portable reputation" },
+            { icon: History, label: "Employment records" },
+            { icon: Gauge, label: "Trusted matching" },
+          ].map((f) => (
+            <div
+              key={f.label}
+              className="rounded-xl bg-white/10 px-3 py-3.5 flex flex-col items-center gap-2 text-center"
+            >
+              <f.icon className="w-4.5 h-4.5 text-accent" />
+              <span className="text-[12.5px] font-semibold leading-snug">{f.label}</span>
             </div>
-          </div>
-          <p className="text-[11px] text-ink-600 mt-0.5">Nanny · Lekki Phase 1 · 6 yrs</p>
-          <div className="mt-2 flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-primary">₦60k–₦80k/mo</span>
-            <span className="text-[10px] rounded-full bg-primary-100 text-primary px-2 py-0.5 font-semibold">Live-in</span>
-          </div>
+          ))}
         </div>
       </div>
+    </div>
+  );
+}
 
-      {/* unlock bar */}
-      <div className="mx-5 mt-3 rounded-xl bg-primary text-primary-foreground px-3 py-2.5 flex items-center justify-between text-[12px] font-semibold shadow-soft">
-        <span className="inline-flex items-center gap-1.5">
-          <Lock className="w-3.5 h-3.5" />
-          Unlock full profile
-        </span>
-        <span className="inline-flex items-center gap-1 bg-white/10 rounded-full px-2 py-0.5 text-[11px]">
-          1 credit
-        </span>
-      </div>
-
-      <div className="mt-auto h-14 bg-surface-1 border-t border-border grid grid-cols-5 items-center text-[9px] text-ink-600">
-        {["Home", "Saved", "Interviews", "Wallet", "Profile"].map((t, i) => (
-          <div key={t} className={`flex flex-col items-center gap-0.5 ${i === 0 ? "text-primary font-bold" : ""}`}>
-            <div className={`w-1 h-1 rounded-full ${i === 0 ? "bg-primary" : "bg-transparent"}`} />
-            {t}
-          </div>
-        ))}
-      </div>
+function Connector() {
+  return (
+    <div className="flex justify-center py-3" aria-hidden="true">
+      <div className="w-px h-8 bg-gradient-to-b from-border to-primary/30" />
     </div>
   );
 }
@@ -251,16 +198,19 @@ function PhonePreview() {
 function TrustStrip() {
   const items = [
     { icon: BadgeCheck, label: "NIN identity check" },
+    { icon: Sparkles, label: "Facial verification" },
     { icon: Users, label: "Guarantor confirmed" },
-    { icon: FileCheck, label: "Documents reviewed" },
-    { icon: MapPin, label: "Every visit logged" },
-    { icon: Sparkles, label: "Selfie liveness match" },
+    { icon: History, label: "Employment history" },
+    { icon: Gauge, label: "Explainable trust score" },
   ];
   return (
     <section className="border-y border-border bg-primary-100/60">
       <div className="mx-auto max-w-6xl px-5 lg:px-8 py-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
         {items.map(({ icon: Icon, label }) => (
-          <div key={label} className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+          <div
+            key={label}
+            className="inline-flex items-center gap-2 text-sm font-semibold text-primary"
+          >
             <Icon className="w-4 h-4" />
             {label}
           </div>
@@ -270,279 +220,419 @@ function TrustStrip() {
   );
 }
 
-/* ---------------- HOW ---------------- */
-function HowItWorks() {
-  const steps = [
+/* ---------------- THE SHIFT ---------------- */
+function TheShift() {
+  const rows = [
     {
-      n: "01",
-      title: "Browse verified profiles for free",
-      body:
-        "Every worker on Abode has passed identity, guarantor and document checks. Filter by role, area and salary — verified is the default.",
+      icon: MessageSquareX,
+      before:
+        "Families hire from WhatsApp groups and referrals, with no way to check who anyone really is.",
+      after:
+        "Post a job and verified people apply — identity checked, guarantor confirmed, history on record.",
     },
     {
-      n: "02",
-      title: "Unlock the full report with one credit",
-      body:
-        "1 credit unlocks the full verification report and contact details for a worker you like. Credits are ₦5,000 each and never expire.",
+      icon: Briefcase,
+      before:
+        "Workers start from zero at every new job. A good reputation dies with the last employer.",
+      after:
+        "One verified profile that travels — employment history and reviews follow the worker for life.",
     },
     {
-      n: "03",
-      title: "Book the interview in-app",
-      body:
-        "Pick a time, share the address inside the app. Both parties' locations are logged for accountability — for their safety and yours.",
+      icon: NotebookPen,
+      before: "Agencies run on notebooks, Excel sheets, paper files and WhatsApp backlogs.",
+      after:
+        "AgencyOS digitises the whole operation — workers, jobs, placements, records and analytics.",
     },
-    {
-      n: "04",
-      title: "Hire with a placement guarantee",
-      body:
-        "Rate the interview and confirm the hire. Start a placement and you're covered by our replacement guarantee window.",
-    },
-  ];
-  return (
-    <section id="how" className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
-      <SectionHeader
-        eyebrow="How Abode works"
-        title="Trust, from browse to hire."
-        sub="A calm, four-step path — nothing hidden, nothing pushy. Pay only when you're ready to unlock."
-      />
-      <div className="mt-14 grid md:grid-cols-2 gap-5">
-        {steps.map((s) => (
-          <div
-            key={s.n}
-            className="group rounded-3xl bg-surface-1 border border-border p-7 lg:p-8 shadow-soft hover:shadow-lift transition-shadow"
-          >
-            <div className="flex items-start gap-5">
-              <span className="shrink-0 w-12 h-12 rounded-2xl bg-primary-100 text-primary grid place-items-center font-bold">
-                {s.n}
-              </span>
-              <div>
-                <h3 className="text-xl font-bold text-ink tracking-tight">{s.title}</h3>
-                <p className="mt-2 text-ink-600 leading-relaxed">{s.body}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- VERIFICATION ---------------- */
-function VerificationSection() {
-  const checks = [
-    { title: "Identity (NIN) verified", body: "Government NIN matched to legal name and date of birth." },
-    { title: "Selfie liveness match", body: "Live selfie confirmed against the NIN photo, dated on record." },
-    { title: "Guarantor on record", body: "Guarantor named, contacted and confirmed by our team." },
-    { title: "Documents reviewed", body: "Supporting documents checked and stored with review dates." },
-  ];
-  return (
-    <section id="verification" className="bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32 grid lg:grid-cols-[1fr_1.1fr] gap-14 lg:gap-20 items-center">
-        <div>
-          <span className="inline-flex items-center gap-2 rounded-full bg-white/10 text-primary-foreground px-3 py-1.5 text-xs font-semibold">
-            <BadgeCheck className="w-3.5 h-3.5 text-accent" />
-            The Abode Verification Standard
-          </span>
-          <h2 className="mt-5 font-display font-extrabold tracking-tight text-[36px] leading-[1.1] sm:text-5xl">
-            Four checks. One <span className="text-accent">amber seal</span>.
-          </h2>
-          <p className="mt-5 text-primary-foreground/80 text-lg leading-relaxed max-w-lg">
-            The amber verified badge is earned, not decorative. Every profile is
-            reviewed by a real human on our team before it goes live.
-          </p>
-          <div className="mt-8 flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-accent grid place-items-center shadow-lift">
-              <ShieldCheck className="w-8 h-8 text-primary" strokeWidth={2.2} />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-accent">Verified by Abode</p>
-              <p className="text-sm text-primary-foreground/70">Reviewed by our team on record</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-3xl bg-surface p-6 lg:p-8 text-ink shadow-lift">
-          <div className="flex items-center justify-between border-b border-border pb-4">
-            <div>
-              <p className="text-xs uppercase tracking-wider text-ink-600 font-semibold">Verification Report</p>
-              <p className="text-lg font-bold text-primary mt-0.5">Chidinma O. · Nanny</p>
-            </div>
-            <div className="w-10 h-10 rounded-full bg-accent grid place-items-center">
-              <BadgeCheck className="w-5 h-5 text-primary" />
-            </div>
-          </div>
-          <ul className="mt-5 space-y-3.5">
-            {checks.map((c) => (
-              <li key={c.title} className="flex items-start gap-3">
-                <span className="mt-0.5 w-6 h-6 shrink-0 rounded-full bg-primary-100 grid place-items-center">
-                  <CheckCircle2 className="w-4 h-4 text-success" />
-                </span>
-                <div>
-                  <p className="font-semibold text-ink">{c.title}</p>
-                  <p className="text-sm text-ink-600 leading-relaxed">{c.body}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-5 rounded-xl bg-accent-100 border border-accent/20 p-3.5 text-sm text-ink flex items-start gap-2.5">
-            <Sparkles className="w-4 h-4 text-accent mt-0.5 shrink-0" />
-            <span>
-              <span className="font-semibold">Honest by design.</span> Self-reported details
-              (like years of experience) are labelled — only checks completed by our team wear the verified tick.
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- CATEGORIES ---------------- */
-function Categories() {
-  const cats = [
-    { title: "Nannies", body: "Warm, background-checked caregivers for children of every age.", img: heroNanny },
-    { title: "Housekeepers", body: "Trained, reliable help for daily and weekly home care.", img: housekeeperImg },
-    { title: "Cooks", body: "Home cooks who know Nigerian kitchens and family taste.", img: cookImg },
-    { title: "Gatemen & Drivers", body: "Professional gatemen and drivers for compound and family life.", img: gatemanImg },
   ];
   return (
     <section className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
       <SectionHeader
-        eyebrow="Who you can hire"
-        title="Every role in the Nigerian home."
-        sub="Launching with nannies in Lekki — expanding across Lagos and the full five categories."
+        eyebrow="Why this needs to exist"
+        title="An entire workforce with no way to prove itself."
+        sub="Millions of Nigerians work in homes. Almost none of them can show a verified identity, an employment record or a reputation they own. That's the gap Abode closes."
       />
-      <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {cats.map((c) => (
-          <article
-            key={c.title}
-            className="group rounded-3xl overflow-hidden bg-surface-1 border border-border shadow-soft hover:shadow-lift transition-all"
+      <div className="mt-14 space-y-4">
+        {rows.map((r) => (
+          <div
+            key={r.before}
+            className="rounded-3xl bg-surface-1 border border-border p-6 lg:p-7 shadow-soft grid lg:grid-cols-[auto_1fr_auto_1fr] gap-5 lg:gap-7 items-center"
           >
-            <div className="relative aspect-[4/5] overflow-hidden">
-              <img
-                src={c.img}
-                alt={c.title}
-                loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute top-3 left-3 inline-flex items-center gap-1 bg-accent-100/95 backdrop-blur text-ink rounded-full pl-1.5 pr-2.5 py-1 text-[11px] font-bold">
-                <BadgeCheck className="w-3.5 h-3.5 text-accent" fill="currentColor" />
-                Verified only
-              </div>
+            <span className="w-12 h-12 shrink-0 rounded-2xl bg-muted text-ink-600 grid place-items-center">
+              <r.icon className="w-6 h-6" />
+            </span>
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-wider text-ink-300">Today</p>
+              <p className="mt-1.5 text-ink-600 leading-relaxed">{r.before}</p>
             </div>
-            <div className="p-5">
-              <h3 className="text-lg font-bold text-ink">{c.title}</h3>
-              <p className="mt-1.5 text-sm text-ink-600 leading-relaxed">{c.body}</p>
+            <span className="hidden lg:grid w-9 h-9 shrink-0 rounded-full bg-primary-100 text-primary place-items-center">
+              <ArrowRight className="w-4 h-4" />
+            </span>
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-wider text-primary-600">
+                With Abode
+              </p>
+              <p className="mt-1.5 text-ink leading-relaxed font-medium">{r.after}</p>
             </div>
-          </article>
+          </div>
         ))}
       </div>
     </section>
   );
 }
 
-/* ---------------- SAFETY ---------------- */
-function SafetySection() {
+/* ---------------- THREE GROUPS ---------------- */
+function ThreeGroups() {
+  const groups = [
+    {
+      icon: Home,
+      kicker: "B2C",
+      title: "Homeowners",
+      body: "Post the role you need filled and review verified workers who apply — identity, employment history, employer reviews and trust score all in one place.",
+      points: [
+        "Post a job, workers come to you",
+        "Free to review every applicant",
+        "Interviews logged for safety",
+      ],
+      to: "/homeowners",
+      cta: "For homeowners",
+      tone: "bg-primary-100 text-primary",
+    },
+    {
+      icon: Briefcase,
+      kicker: "B2C",
+      title: "Independent workers",
+      body: "Join directly and build a portable professional identity. Verify once, and your reputation, records and reviews follow you for the rest of your career.",
+      points: ["Free verification", "A reputation you own", "Work found by matching, not luck"],
+      to: "/workers",
+      cta: "For workers",
+      tone: "bg-warmth-100 text-warmth",
+    },
+    {
+      icon: Building2,
+      kicker: "B2B SaaS",
+      title: "Recruitment agencies",
+      body: "Subscribe to AgencyOS and run your whole agency on software — onboard workers, receive jobs, assign candidates, track placements and prove your track record.",
+      points: [
+        "Digital workforce management",
+        "Job distribution & tracking",
+        "No commission, ever",
+      ],
+      to: "/agencies",
+      cta: "For agencies",
+      tone: "bg-accent-100 text-accent-foreground",
+    },
+  ];
   return (
-    <section id="safety" className="bg-warmth-100/60">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
-        <div className="relative">
-          <div className="rounded-3xl bg-surface-1 border border-border p-6 lg:p-7 shadow-lift">
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#EAF1F9] text-info px-3 py-1.5 text-xs font-semibold">
-              <MapPin className="w-3.5 h-3.5" />
-              Interview visit logged
-            </div>
-            <p className="mt-4 text-ink leading-relaxed">
-              Tuesday, 3:00 PM · Chidinma O. · Lekki Phase 1
+    <section id="who" className="bg-warmth-100/40 border-y border-border">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
+        <SectionHeader
+          eyebrow="Three sides, one platform"
+          title="Built for everyone in the chain."
+          sub="Homeowners, workers and the agencies that connect them — each with their own product surface, all standing on the same verified foundation."
+          align="center"
+        />
+        <div className="mt-14 grid lg:grid-cols-3 gap-5">
+          {groups.map((g) => (
+            <Link
+              key={g.title}
+              to={g.to}
+              className="group rounded-3xl bg-surface-1 border border-border p-7 shadow-soft hover:shadow-lift hover:border-primary/40 transition-all flex flex-col"
+            >
+              <div className="flex items-center justify-between">
+                <span className={`w-12 h-12 rounded-2xl grid place-items-center ${g.tone}`}>
+                  <g.icon className="w-6 h-6" />
+                </span>
+                <span className="rounded-full bg-muted px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-ink-600">
+                  {g.kicker}
+                </span>
+              </div>
+              <h3 className="mt-5 text-xl font-bold text-ink tracking-tight">{g.title}</h3>
+              <p className="mt-2 text-ink-600 leading-relaxed">{g.body}</p>
+              <ul className="mt-5 space-y-2 flex-1">
+                {g.points.map((p) => (
+                  <li key={p} className="flex items-start gap-2.5 text-sm text-ink">
+                    <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 shrink-0" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+              <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                {g.cta}
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- TWO PRODUCTS ---------------- */
+function TwoProducts() {
+  return (
+    <section id="products" className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
+      <SectionHeader
+        eyebrow="Two products"
+        title="One trust layer. Two businesses."
+        sub="The marketplace earns per transaction. AgencyOS earns predictable monthly subscription revenue. Both are powered by the same verified data — and each one makes the other stronger."
+      />
+      <div className="mt-14 grid lg:grid-cols-2 gap-5">
+        {/* Marketplace */}
+        <div className="rounded-3xl bg-surface-1 border border-border p-7 lg:p-9 shadow-soft flex flex-col">
+          <span className="text-xs font-bold uppercase tracking-wider text-primary-600">
+            Product 01 · B2C
+          </span>
+          <h3 className="mt-2 font-display text-3xl font-extrabold text-primary tracking-tight">
+            Marketplace
+          </h3>
+          <p className="mt-3 text-ink-600 leading-relaxed">
+            Homeowners post jobs; verified workers apply or get recommended. A credit wallet powers
+            it — ₦100 per credit, one balance, nothing expires.
+          </p>
+          <div className="mt-6 space-y-3">
+            {[
+              ["Post a job", "50 credits"],
+              ["Instant AI recommendations", "50 credits"],
+              ["Worker applies to a job", "By salary level"],
+              ["Reviewing applicants & hiring", "Free"],
+            ].map(([label, cost]) => (
+              <div
+                key={label}
+                className="flex items-center justify-between gap-4 border-b border-border pb-3"
+              >
+                <span className="text-sm text-ink">{label}</span>
+                <span
+                  className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold ${
+                    cost === "Free"
+                      ? "bg-primary-100 text-primary"
+                      : "bg-accent-100 text-accent-foreground"
+                  }`}
+                >
+                  {cost}
+                </span>
+              </div>
+            ))}
+          </div>
+          <Link
+            to="/homeowners"
+            className="mt-7 inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3.5 text-[15px] font-semibold hover:bg-primary-600 transition-colors"
+          >
+            See the marketplace
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        {/* AgencyOS */}
+        <div className="rounded-3xl bg-primary text-primary-foreground p-7 lg:p-9 shadow-lift flex flex-col">
+          <span className="text-xs font-bold uppercase tracking-wider text-accent">
+            Product 02 · B2B SaaS
+          </span>
+          <h3 className="mt-2 font-display text-3xl font-extrabold tracking-tight">AgencyOS</h3>
+          <p className="mt-3 text-primary-foreground/80 leading-relaxed">
+            The operating system for recruitment agencies — worker database, onboarding, job
+            distribution, placements, employment records and analytics. Flat monthly software
+            pricing, no commission.
+          </p>
+          <div className="mt-6 space-y-3">
+            {[
+              ["Starter", "Up to 30 workers", "₦20,000/mo"],
+              ["Growth", "Up to 150 workers", "₦50,000/mo"],
+              ["Professional", "Up to 500 workers", "₦100,000/mo"],
+            ].map(([plan, cap, price]) => (
+              <div
+                key={plan}
+                className="flex items-center justify-between gap-4 rounded-xl bg-white/10 px-4 py-3"
+              >
+                <div>
+                  <p className="text-sm font-bold">{plan}</p>
+                  <p className="text-[12px] text-primary-foreground/70">{cap}</p>
+                </div>
+                <span className="shrink-0 text-sm font-bold text-accent">{price}</span>
+              </div>
+            ))}
+          </div>
+          <Link
+            to="/agencies"
+            className="mt-7 inline-flex items-center justify-center gap-2 rounded-xl bg-accent text-primary px-5 py-3.5 text-[15px] font-semibold hover:bg-accent/90 transition-colors"
+          >
+            Explore AgencyOS
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- TRUST LAYER ---------------- */
+function TrustLayer() {
+  return (
+    <section id="trust-layer" className="bg-primary text-primary-foreground">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
+        <SectionHeader
+          onDark
+          eyebrow="The trust layer"
+          title={
+            <>
+              Agencies recruit.
+              <br />
+              <span className="text-accent">Abode verifies.</span>
+            </>
+          }
+          sub="This is the single most important rule on the platform. Agencies find and manage workers — but they never verify them. Verification is centralised with Abode so the standard can't drift."
+        />
+
+        <div className="mt-14 grid lg:grid-cols-2 gap-5">
+          <div className="rounded-3xl bg-white/5 border border-white/10 p-7 lg:p-8">
+            <p className="text-sm font-bold text-accent uppercase tracking-wider">
+              If agencies verified
             </p>
-            <div className="mt-4 rounded-2xl overflow-hidden border border-border bg-[#FBF6EE] aspect-[6/5] relative">
-              <svg viewBox="0 0 360 300" className="w-full h-full" role="img" aria-label="Logged interview route from home to the worker">
-                <rect width="360" height="300" fill="#FBF6EE" />
-                {/* block / green-space tints */}
-                <rect x="205" y="152" width="128" height="96" rx="10" fill="#EAF0E6" />
-                <rect x="28" y="28" width="92" height="80" rx="10" fill="#F2EDE1" />
-                <rect x="270" y="20" width="70" height="60" rx="10" fill="#F2EDE1" />
-
-                {/* minor roads */}
-                <g stroke="#ECE3D4" strokeWidth="3" strokeLinecap="round">
-                  <path d="M0 45 H360" />
-                  <path d="M0 150 H360" />
-                  <path d="M0 255 H360" />
-                  <path d="M40 0 V300" />
-                  <path d="M175 0 V300" />
-                  <path d="M320 0 V300" />
-                  <path d="M95 150 L175 205" />
-                  <path d="M255 95 L320 45" />
-                </g>
-                {/* major roads */}
-                <g stroke="#E4DAC8" strokeWidth="8" strokeLinecap="round">
-                  <path d="M0 95 H360" />
-                  <path d="M255 0 V300" />
-                  <path d="M95 0 V300" />
-                  <path d="M0 205 H360" />
-                </g>
-                {/* centre-line dashes on the main roads */}
-                <g stroke="#FBF6EE" strokeWidth="1.2" strokeDasharray="7 7">
-                  <path d="M0 95 H360" />
-                  <path d="M255 0 V300" />
-                </g>
-
-                {/* street names */}
-                <g fill="#B9AE9B" fontFamily="Plus Jakarta Sans, sans-serif" fontSize="9" fontWeight={600}>
-                  <text x="16" y="90">Fola Osibo</text>
-                  <text x="188" y="200">Bisola Durosinmi</text>
-                  <text x="248" y="145" transform="rotate(-90 248 145)">Admiralty Way</text>
-                </g>
-
-                {/* route: halo + line */}
-                <path d="M120 262 L120 207 L176 207 L176 96 L255 96 L255 58" fill="none" stroke="#147A5C" strokeOpacity="0.16" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M120 262 L120 207 L176 207 L176 96 L255 96 L255 58" fill="none" stroke="#147A5C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-
-                {/* worker pin (destination, top) */}
-                <circle cx="255" cy="55" r="15" fill="#0B3D2E" opacity="0.18" />
-                <circle cx="255" cy="55" r="8" fill="#0B3D2E" stroke="#fff" strokeWidth="2.5" />
-                {/* home pin (start, bottom) */}
-                <circle cx="120" cy="265" r="15" fill="#2E6FB0" opacity="0.18" />
-                <circle cx="120" cy="265" r="8" fill="#2E6FB0" stroke="#fff" strokeWidth="2.5" />
-
-                {/* pin labels */}
-                <g fontFamily="Plus Jakarta Sans, sans-serif" fontSize="10" fontWeight={700}>
-                  <rect x="146" y="255" width="58" height="20" rx="7" fill="#fff" stroke="#EDE5D8" />
-                  <text x="175" y="268.5" textAnchor="middle" fill="#211E1A">Home</text>
-                  <rect x="146" y="45" width="100" height="20" rx="7" fill="#fff" stroke="#EDE5D8" />
-                  <text x="196" y="58.5" textAnchor="middle" fill="#211E1A">Interview address</text>
-                </g>
-              </svg>
-            </div>
-            <div className="mt-4 flex items-center justify-between text-sm">
-              <div className="flex items-center gap-2 text-ink-600">
-                <span className="w-2 h-2 rounded-full bg-info" /> Homeowner
-              </div>
-              <div className="flex items-center gap-2 text-ink-600">
-                <span className="w-2 h-2 rounded-full bg-primary" /> Worker
-              </div>
-            </div>
+            <ul className="mt-5 space-y-3.5">
+              {[
+                "Trust would vary from agency to agency",
+                "Standards would differ across the platform",
+                "An agency could approve a worker who isn't real",
+                "The badge would stop meaning anything",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-3 text-primary-foreground/75">
+                  <span className="mt-2 w-1.5 h-1.5 rounded-full bg-warmth shrink-0" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-3xl bg-surface text-ink p-7 lg:p-8 shadow-lift">
+            <p className="text-sm font-bold text-primary-600 uppercase tracking-wider">
+              How Abode does it
+            </p>
+            <ul className="mt-5 space-y-4">
+              {[
+                {
+                  title: "NIN identity verification",
+                  body: "Run by Abode through a licensed identity provider, stored masked.",
+                },
+                {
+                  title: "Facial verification",
+                  body: "A live face check proves a real person and matches them to their NIN identity.",
+                },
+                {
+                  title: "Guarantor call",
+                  body: "A real person on our team calls the guarantor and records the outcome.",
+                },
+                {
+                  title: "Human sign-off",
+                  body: "No profile goes live without review by our team. Rejections carry a reason.",
+                },
+              ].map((c) => (
+                <li key={c.title} className="flex items-start gap-3">
+                  <span className="mt-0.5 w-6 h-6 shrink-0 rounded-full bg-primary-100 grid place-items-center">
+                    <CheckCircle2 className="w-4 h-4 text-success" />
+                  </span>
+                  <div>
+                    <p className="font-semibold text-ink">{c.title}</p>
+                    <p className="text-sm text-ink-600 leading-relaxed">{c.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
+
+        <div className="mt-8 inline-flex items-start gap-2.5 rounded-xl bg-white/10 px-4 py-3 text-sm">
+          <ShieldCheck className="w-4 h-4 text-accent mt-0.5 shrink-0" />
+          <span>
+            Only identity, guarantor, documents and platform placements are marked “verified”.
+            Self-reported details are always labelled as such — never dressed up with a tick.
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- TRUST SCORE ---------------- */
+function TrustScore() {
+  const groups = [
+    {
+      icon: Fingerprint,
+      title: "Identity",
+      body: "NIN verified. Face verified. The foundation everything else sits on.",
+    },
+    {
+      icon: History,
+      title: "Employment",
+      body: "Jobs completed, length of each placement, and repeat employment with the same family.",
+    },
+    {
+      icon: Star,
+      title: "Reputation",
+      body: "Employer ratings, positive reviews and complaint rate over time.",
+    },
+    {
+      icon: BadgeCheck,
+      title: "Professionalism",
+      body: "A complete profile, responsive communication and a confirmed guarantor.",
+    },
+  ];
+  return (
+    <section id="trust-score" className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
+      <SectionHeader
+        eyebrow="Trust Score"
+        title="Explainable, not a black box."
+        sub="We deliberately started with a rules-based score rather than an AI number. Every point comes from a signal you can name — so workers know how to grow it, and families know exactly what they're reading."
+        align="center"
+      />
+      <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {groups.map((g) => (
+          <div
+            key={g.title}
+            className="rounded-3xl bg-surface-1 border border-border p-7 shadow-soft"
+          >
+            <span className="w-12 h-12 rounded-2xl bg-primary-100 text-primary grid place-items-center">
+              <g.icon className="w-6 h-6" />
+            </span>
+            <h3 className="mt-5 text-lg font-bold text-ink tracking-tight">{g.title}</h3>
+            <p className="mt-2 text-sm text-ink-600 leading-relaxed">{g.body}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-8 rounded-2xl bg-accent-100 border border-accent/25 p-5 flex items-start gap-3">
+        <Sparkles className="w-5 h-5 text-accent mt-0.5 shrink-0" />
+        <p className="text-sm text-ink leading-relaxed">
+          <span className="font-semibold">A new worker is never punished for being new.</span> A
+          freshly verified worker with no history shows as “New · Verified” — never a zero score or
+          an empty star rating.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- PORTABLE REPUTATION ---------------- */
+function PortableReputation() {
+  return (
+    <section className="bg-warmth-100/40 border-y border-border">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full bg-warmth/10 text-warmth px-3 py-1.5 text-xs font-semibold">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            Safety is mutual
+            <Repeat className="w-3.5 h-3.5" />
+            Worker ownership
           </span>
-          <h2 className="mt-5 font-display font-extrabold tracking-tight text-primary text-[36px] leading-[1.1] sm:text-5xl">
-            Every visit is on record.
+          <h2 className="mt-5 font-display font-extrabold tracking-tight text-primary text-[34px] leading-[1.1] sm:text-5xl">
+            The worker owns the record.
           </h2>
           <p className="mt-5 text-lg text-ink-600 leading-relaxed max-w-lg">
-            When you book an interview, the address is shared inside the app and
-            both parties' locations are logged. Not surveillance — protection.
-            For you, and for the person coming to your home.
+            Agencies manage workers operationally — that's real and useful. But identity, trust
+            history, employment records and reputation stay attached to the worker's own Abode
+            profile. Change employer, change agency, and your professional history comes with you.
           </p>
           <ul className="mt-7 space-y-3">
             {[
-              "Addresses shared only after an interview is accepted",
-              "Both parties consent before a visit is logged",
-              "48-hour response window with automatic credit refund",
-              "Report and support flow reachable from every screen",
+              "Identity and verification belong to the worker",
+              "Employment history is a permanent timeline, not an agency's file",
+              "Employer reviews and trust score follow the person",
+              "Leaving an agency doesn't reset a career",
             ].map((t) => (
               <li key={t} className="flex items-start gap-3 text-ink">
                 <CheckCircle2 className="w-5 h-5 text-primary-600 mt-0.5 shrink-0" />
@@ -551,117 +641,132 @@ function SafetySection() {
             ))}
           </ul>
         </div>
+
+        <div className="rounded-3xl bg-surface-1 border border-border p-7 lg:p-8 shadow-lift">
+          <p className="text-xs font-bold uppercase tracking-wider text-ink-600">
+            Employment timeline
+          </p>
+          <p className="mt-1 font-bold text-ink">Chidinma O. · Nanny</p>
+          <div className="mt-6 relative pl-7">
+            <div className="absolute left-[7px] top-1.5 bottom-1.5 w-px bg-border" />
+            {[
+              {
+                period: "2026 — present",
+                place: "Adeyemi family · Lekki Phase 1",
+                note: "Live-in nanny · ongoing",
+                live: true,
+              },
+              {
+                period: "2024 — 2026",
+                place: "Okonkwo family · Ikoyi",
+                note: "22 months · ★ 5.0 · rehired once",
+              },
+              { period: "2023 — 2024", place: "Bello family · Lekki", note: "11 months · ★ 4.5" },
+              {
+                period: "2023",
+                place: "Verified on Abode",
+                note: "NIN · face · guarantor confirmed",
+                seal: true,
+              },
+            ].map((e) => (
+              <div key={e.period} className="relative pb-6 last:pb-0">
+                <span
+                  className={`absolute -left-7 top-1 w-4 h-4 rounded-full border-2 border-surface-1 grid place-items-center ${
+                    e.seal ? "bg-accent" : e.live ? "bg-success" : "bg-primary"
+                  }`}
+                >
+                  {e.seal && <BadgeCheck className="w-2.5 h-2.5 text-primary" />}
+                </span>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-ink-300">
+                  {e.period}
+                </p>
+                <p className="mt-0.5 font-semibold text-ink text-[15px]">{e.place}</p>
+                <p className="text-[13px] text-ink-600">{e.note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ---------------- PRICING ---------------- */
-function Pricing() {
-  const packs = [
-    { name: "Starter", credits: 1, price: "₦5,000", note: "Try one unlock", popular: false },
-    { name: "Most popular", credits: 5, price: "₦20,000", note: "Save ₦5,000", popular: true },
-    { name: "Best value", credits: 10, price: "₦35,000", note: "Save ₦15,000", popular: false },
+/* ---------------- VISION ---------------- */
+function Vision() {
+  const sectors = [
+    "Domestic workers",
+    "Security personnel",
+    "Drivers",
+    "Caregivers",
+    "Hospitality workers",
+    "Artisans",
+    "Skilled trades",
   ];
   return (
-    <section id="pricing" className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
+    <section id="vision" className="mx-auto max-w-6xl px-5 lg:px-8 py-24 lg:py-32">
       <SectionHeader
-        eyebrow="Simple, fair pricing"
-        title="Browse free. Pay only to unlock."
-        sub="1 credit unlocks one full verification report and contact details. Credits never expire."
+        eyebrow="Where this goes"
+        title="Infrastructure, not a single app."
+        sub="Domestic work is where we start, because it's where the trust gap hurts families and workers most. But verified identity, portable reputation, employment records and trusted matching are what every informal sector in Nigeria is missing."
+        align="center"
       />
-      <div className="mt-14 grid md:grid-cols-3 gap-5">
-        {packs.map((p) => (
-          <div
-            key={p.name}
-            className={`relative rounded-3xl p-7 border shadow-soft flex flex-col ${
-              p.popular
-                ? "bg-primary text-primary-foreground border-primary shadow-lift"
-                : "bg-surface-1 border-border text-ink"
+      <div className="mt-14 flex flex-wrap justify-center gap-3">
+        {sectors.map((s, i) => (
+          <span
+            key={s}
+            className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold border ${
+              i === 0
+                ? "bg-primary text-primary-foreground border-primary"
+                : "bg-surface-1 text-ink-600 border-border"
             }`}
           >
-            {p.popular && (
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 bg-accent text-primary rounded-full px-3 py-1 text-xs font-bold">
-                <Sparkles className="w-3.5 h-3.5" />
-                Most popular
-              </span>
+            {i === 0 ? (
+              <>
+                <BadgeCheck className="w-4 h-4 text-accent" />
+                {s} · live first
+              </>
+            ) : (
+              s
             )}
-            <p className={`text-sm font-semibold ${p.popular ? "text-accent" : "text-ink-600"}`}>
-              {p.name}
-            </p>
-            <div className="mt-2 flex items-baseline gap-2">
-              <span className="text-5xl font-extrabold tracking-tight">{p.credits}</span>
-              <span className={`text-sm font-medium ${p.popular ? "text-primary-foreground/80" : "text-ink-600"}`}>
-                credit{p.credits > 1 ? "s" : ""}
-              </span>
-            </div>
-            <p className="mt-1 text-2xl font-bold">{p.price}</p>
-            <p className={`mt-1 text-sm ${p.popular ? "text-primary-foreground/70" : "text-ink-600"}`}>
-              {p.note}
-            </p>
-            <ul className={`mt-6 space-y-2.5 text-sm flex-1 ${p.popular ? "text-primary-foreground/90" : "text-ink"}`}>
-              <li className="flex gap-2">
-                <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${p.popular ? "text-accent" : "text-primary-600"}`} />
-                Full verification report
-              </li>
-              <li className="flex gap-2">
-                <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${p.popular ? "text-accent" : "text-primary-600"}`} />
-                Direct contact & WhatsApp
-              </li>
-              <li className="flex gap-2">
-                <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${p.popular ? "text-accent" : "text-primary-600"}`} />
-                In-app interview booking
-              </li>
-              <li className="flex gap-2">
-                <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${p.popular ? "text-accent" : "text-primary-600"}`} />
-                48h refund if no response
-              </li>
-            </ul>
-            <a
-              href="#waitlist"
-              className={`mt-7 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors ${
-                p.popular
-                  ? "bg-accent text-primary hover:bg-accent/90"
-                  : "bg-primary text-primary-foreground hover:bg-primary-600"
-              }`}
-            >
-              Get {p.credits} credit{p.credits > 1 ? "s" : ""}
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
+          </span>
         ))}
       </div>
-      <p className="mt-8 text-center text-sm text-ink-600 inline-flex items-center gap-2 w-full justify-center">
-        <Wallet className="w-4 h-4" /> Credits never expire · Pay with Paystack
+      <p className="mt-10 text-center text-ink-600 max-w-2xl mx-auto leading-relaxed">
+        The underlying platform never changes. That's what makes Abode a foundation for the labour
+        market rather than one more hiring app.
       </p>
     </section>
   );
 }
 
-/* ---------------- FAQ DATA (homeowner) ---------------- */
-const HOMEOWNER_FAQS = [
+/* ---------------- FAQ ---------------- */
+const PLATFORM_FAQS = [
   {
-    q: "When are you launching on the app stores?",
-    a: "We are currently in the validation phase and working hard to launch as soon as possible. Join the waitlist and we'll email you the launch date.",
+    q: "So is Abode an app, or software for agencies?",
+    a: "Both — and they're deliberately connected. The marketplace is where homeowners post jobs and workers get hired. AgencyOS is subscription software recruitment agencies use to run their operation. Both sit on the same trust layer: the same verified identities, the same employment records, the same trust score.",
   },
   {
-    q: "How does Abode verify workers?",
-    a: "Every worker completes an NIN identity check, a live selfie match, a guarantor call by our team, and a document review. A real human on our team signs off before the amber verified badge appears.",
+    q: "Why don't you let agencies verify their own workers?",
+    a: "Because trust would immediately fragment. Different agencies would apply different standards, and some could approve workers who aren't real. Agencies recruit and manage; Abode verifies. One standard, applied identically to everyone, is the whole product.",
   },
   {
-    q: "What if the worker doesn't respond to my interview request?",
-    a: "If a worker doesn't accept within 48 hours, your credit is automatically refunded to your wallet. Unlocks are atomic — you never pay for a profile we can't deliver.",
+    q: "If an agency onboards a worker, who owns that worker's profile?",
+    a: "The worker. Agencies manage workers operationally — assigning them to jobs, tracking placements — but identity, trust history, employment records and reputation are attached to the worker's own Abode profile and travel with them if they change agency or employer.",
   },
   {
-    q: "Is location logging safe? What data is stored?",
-    a: "Location logging protects both sides. We record that a visit took place, at what address, and roughly when — never continuous tracking. Both parties consent before an interview is confirmed.",
+    q: "Many domestic workers don't have smartphones. How does that work?",
+    a: "Two ways. Agencies can onboard a worker on the agency's own device while the worker is physically present, and agencies receive job opportunities on their workers' behalf and submit candidates. Workers who do use smartphones can join directly and apply themselves.",
   },
   {
-    q: "Where is Abode available?",
-    a: "We're launching in Lekki, Lagos, then expanding across Lagos and to other states like Abuja where applicable. Expansion depends on demand and on verified workers being available in the area.",
+    q: "How does Abode make money?",
+    a: "Two engines. The marketplace runs on credits (₦100 each): homeowners spend credits to post jobs and get instant recommendations, and workers spend credits to apply. AgencyOS is a flat monthly subscription from ₦20,000. We take no commission and no per-placement fee from anyone.",
   },
   {
-    q: "How much does it cost to try?",
-    a: "Browsing is free. One credit costs ₦5,000 and unlocks one full profile — with savings on 5 and 10-credit packs. Credits never expire. Pricing is still in review while we're in validation.",
+    q: "Is the trust score AI?",
+    a: "Not initially, and that's on purpose. It's rules-based, built from named signals — verified identity, employment history, employer reputation and professionalism — so it's explainable to both sides. A score nobody can interpret isn't trust.",
+  },
+  {
+    q: "When does it launch?",
+    a: "We're in validation now, starting with nannies in Lekki Phase 1, Lagos. Join the waitlist or take the survey — the answers genuinely shape what we build first.",
   },
 ];

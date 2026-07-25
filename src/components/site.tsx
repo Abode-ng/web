@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import abodeIcon from "@/assets/abode-icon.png";
 
-export type SiteRole = "homeowner" | "workers" | "agents";
+export type SiteRole = "platform" | "homeowners" | "workers" | "agencies";
 
 // Google Form survey (shared across all three roles — the form asks which one).
 export const SURVEY_URL = "https://forms.gle/babLTMxWtB66mfqSA";
@@ -26,9 +26,10 @@ const WAITLIST_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string 
 
 /* ---------------- NAV (role switcher) ---------------- */
 const ROLE_TABS: { key: SiteRole; label: string; to: string }[] = [
-  { key: "homeowner", label: "For homeowners", to: "/" },
-  { key: "workers", label: "For workers", to: "/workers" },
-  { key: "agents", label: "For agents", to: "/agents" },
+  { key: "platform", label: "Platform", to: "/" },
+  { key: "homeowners", label: "Homeowners", to: "/homeowners" },
+  { key: "workers", label: "Workers", to: "/workers" },
+  { key: "agencies", label: "Agencies", to: "/agencies" },
 ];
 
 export function SiteNav({ active }: { active: SiteRole }) {
@@ -118,7 +119,9 @@ export function SectionHeader({
         {title}
       </h2>
       {sub && (
-        <p className={`mt-4 text-lg leading-relaxed ${onDark ? "text-primary-foreground/80" : "text-ink-600"}`}>
+        <p
+          className={`mt-4 text-lg leading-relaxed ${onDark ? "text-primary-foreground/80" : "text-ink-600"}`}
+        >
           {sub}
         </p>
       )}
@@ -143,8 +146,8 @@ export function Survey() {
     },
     {
       icon: Users,
-      title: "I'm an agent",
-      body: "Help us shape how agents add workers and earn on every unlock.",
+      title: "I run a recruitment agency",
+      body: "Tell us how you run your agency today — and what AgencyOS needs to do to replace the notebook.",
       tone: "bg-accent-100 text-accent-foreground",
     },
   ];
@@ -178,7 +181,8 @@ export function Survey() {
         ))}
       </div>
       <p className="mt-8 text-center text-sm text-ink-600 inline-flex items-center gap-2 w-full justify-center">
-        <ClipboardList className="w-4 h-4" /> Anonymous · takes about 3 minutes · shapes our Lekki pilot
+        <ClipboardList className="w-4 h-4" /> Anonymous · takes about 3 minutes · shapes our Lekki
+        pilot
       </p>
     </section>
   );
@@ -186,7 +190,7 @@ export function Survey() {
 
 /* ---------------- WAITLIST ---------------- */
 export function Waitlist({
-  role = "homeowner",
+  role = "platform",
   title,
   sub,
 }: {
@@ -244,13 +248,15 @@ export function Waitlist({
             <h2 className="font-display font-extrabold tracking-tight text-[36px] leading-[1.05] sm:text-5xl lg:text-6xl">
               {title ?? (
                 <>
-                  Everyone verified.<br />
+                  Everyone verified.
+                  <br />
                   <span className="text-accent">Everyone protected.</span>
                 </>
               )}
             </h2>
             <p className="mt-5 text-primary-foreground/80 text-lg max-w-lg leading-relaxed">
-              {sub ?? "Be the first to know when Abode launches in your area. No spam — just one email when we're live."}
+              {sub ??
+                "Be the first to know when Abode launches in your area. No spam — just one email when we're live."}
             </p>
           </div>
 
@@ -356,31 +362,32 @@ export function SiteFooter() {
             <span className="text-lg font-bold text-primary">Abode</span>
           </div>
           <p className="mt-3 text-sm text-ink-600 max-w-xs leading-relaxed">
-            Your home. Trusted hands. Verified domestic staffing for Nigerian
-            families, starting in Lekki, Lagos.
+            The trust infrastructure for Nigerian homes, workers and recruitment agencies. Verified
+            identity, portable reputation, real employment records — starting in Lekki, Lagos.
           </p>
         </div>
         <FooterCol
-          title="For homeowners"
+          title="Products"
           links={[
-            { label: "How it works", href: "/#how" },
-            { label: "Verification", href: "/#verification" },
-            { label: "Safety", href: "/#safety" },
-            { label: "Pricing", href: "/#pricing" },
+            { label: "Marketplace", href: "/homeowners" },
+            { label: "AgencyOS", href: "/agencies" },
+            { label: "The trust layer", href: "/#trust-layer" },
+            { label: "Trust Score", href: "/#trust-score" },
           ]}
         />
         <FooterCol
-          title="Join Abode"
+          title="Who it's for"
           links={[
-            { label: "For workers", href: "/workers" },
-            { label: "For agents", href: "/agents" },
-            { label: "Join the waitlist", href: "#waitlist" },
+            { label: "Homeowners", href: "/homeowners" },
+            { label: "Workers", href: "/workers" },
+            { label: "Recruitment agencies", href: "/agencies" },
             { label: "Take the survey", href: SURVEY_URL, external: true },
           ]}
         />
         <FooterCol
           title="Company"
           links={[
+            { label: "Join the waitlist", href: "#waitlist" },
             { label: "Email us", href: "mailto:hello@abode.ng" },
             { label: "Call support", href: "tel:+2349153120110" },
             { label: "Privacy", href: "#" },

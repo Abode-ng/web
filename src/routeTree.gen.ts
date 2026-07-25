@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkersRouteImport } from './routes/workers'
+import { Route as HomeownersRouteImport } from './routes/homeowners'
 import { Route as AgentsRouteImport } from './routes/agents'
+import { Route as AgenciesRouteImport } from './routes/agencies'
 import { Route as IndexRouteImport } from './routes/index'
 
 const WorkersRoute = WorkersRouteImport.update({
@@ -18,9 +20,19 @@ const WorkersRoute = WorkersRouteImport.update({
   path: '/workers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HomeownersRoute = HomeownersRouteImport.update({
+  id: '/homeowners',
+  path: '/homeowners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AgentsRoute = AgentsRouteImport.update({
   id: '/agents',
   path: '/agents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgenciesRoute = AgenciesRouteImport.update({
+  id: '/agencies',
+  path: '/agencies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -31,31 +43,39 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agencies': typeof AgenciesRoute
   '/agents': typeof AgentsRoute
+  '/homeowners': typeof HomeownersRoute
   '/workers': typeof WorkersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agencies': typeof AgenciesRoute
   '/agents': typeof AgentsRoute
+  '/homeowners': typeof HomeownersRoute
   '/workers': typeof WorkersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agencies': typeof AgenciesRoute
   '/agents': typeof AgentsRoute
+  '/homeowners': typeof HomeownersRoute
   '/workers': typeof WorkersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/agents' | '/workers'
+  fullPaths: '/' | '/agencies' | '/agents' | '/homeowners' | '/workers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agents' | '/workers'
-  id: '__root__' | '/' | '/agents' | '/workers'
+  to: '/' | '/agencies' | '/agents' | '/homeowners' | '/workers'
+  id: '__root__' | '/' | '/agencies' | '/agents' | '/homeowners' | '/workers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgenciesRoute: typeof AgenciesRoute
   AgentsRoute: typeof AgentsRoute
+  HomeownersRoute: typeof HomeownersRoute
   WorkersRoute: typeof WorkersRoute
 }
 
@@ -68,11 +88,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/homeowners': {
+      id: '/homeowners'
+      path: '/homeowners'
+      fullPath: '/homeowners'
+      preLoaderRoute: typeof HomeownersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/agents': {
       id: '/agents'
       path: '/agents'
       fullPath: '/agents'
       preLoaderRoute: typeof AgentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agencies': {
+      id: '/agencies'
+      path: '/agencies'
+      fullPath: '/agencies'
+      preLoaderRoute: typeof AgenciesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -87,7 +121,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgenciesRoute: AgenciesRoute,
   AgentsRoute: AgentsRoute,
+  HomeownersRoute: HomeownersRoute,
   WorkersRoute: WorkersRoute,
 }
 export const routeTree = rootRouteImport
