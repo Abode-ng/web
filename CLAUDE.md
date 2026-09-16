@@ -31,7 +31,7 @@ A future `/agency` (Abode Agency OS) page is designed but not built. Subdomains 
 
 Page files (`src/app/*/page.tsx`) are thin: they set metadata and compose section components in order. Sections live in `src/components/sections` (landing) and `src/components/family`; shared primitives in `src/components/ui`. `SiteHeader` and `SiteFooter` are shared and take props so each page supplies its own nav links and CTA.
 
-**Everything is a server component.** There is no `"use client"` in the codebase. Interactive behaviour is pure CSS: the nav dropdown and team hover cards use `group-hover` / `focus-within`, the FAQ accordions are `<details>/<summary>`. Keep it that way unless a feature genuinely needs state.
+**Almost everything is a server component.** `sections/team.tsx` is the only `"use client"` file — touch devices have no hover, so tapping a card toggles the detail panel. Everything else is pure CSS: the nav dropdown uses `group-hover` / `focus-within`, the FAQ accordions are `<details>/<summary>`. Keep it that way unless a feature genuinely needs state.
 
 **Design tokens live in `src/app/globals.css`** under Tailwind v4's `@theme` — colours, the type scale, shadows, breakpoints. There is no `tailwind.config`. Add tokens there rather than hardcoding hex values or px sizes.
 

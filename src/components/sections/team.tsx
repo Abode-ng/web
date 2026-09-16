@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 
 import { Section, SectionHeading } from "@/components/ui/section";
@@ -6,6 +9,9 @@ import { Section, SectionHeading } from "@/components/ui/section";
  * Each portrait is a 500px square anchored to the bottom of a pill-shaped frame.
  * On hover the pill widens into a card and a panel slides up over the lower part
  * of the photo — the photo itself does not move or rescale.
+ *
+ * Touch devices have no hover, so tapping a card toggles the same panel. That is
+ * the only reason this is a client component.
  */
 const TEAM = [
   {
@@ -39,6 +45,8 @@ const TEAM = [
 ];
 
 export function Team() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   return (
     <Section
       id="team"
@@ -51,11 +59,24 @@ export function Team() {
       />
 
       <div className="flex w-full snap-x snap-mandatory items-stretch gap-12 overflow-x-auto pb-2 lg:h-[560px] lg:snap-none lg:overflow-visible lg:pb-0">
-        {TEAM.map((member) => (
+        {TEAM.map((member, index) => (
           <article
             key={member.name}
+            role="button"
             tabIndex={0}
-            className="group bg-primary-3 relative h-[560px] w-[240px] shrink-0 snap-center overflow-hidden rounded-[1000px] transition-all duration-500 ease-out outline-none lg:h-full lg:w-auto lg:flex-1 lg:hover:flex-[1.8] lg:hover:rounded-3xl lg:focus-visible:flex-[1.8] lg:focus-visible:rounded-3xl"
+            aria-expanded={openIndex === index}
+            aria-label={`${member.name}, ${member.role}`}
+            data-open={openIndex === index ? "" : undefined}
+            onClick={() =>
+              setOpenIndex(openIndex === index ? null : index)
+            }
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setOpenIndex(openIndex === index ? null : index);
+              }
+            }}
+            className="group bg-primary-3 relative h-[560px] w-[240px] shrink-0 cursor-pointer snap-center overflow-hidden rounded-[1000px] transition-all duration-500 ease-out outline-none data-open:rounded-3xl lg:h-full lg:w-auto lg:flex-1 lg:hover:flex-[1.8] lg:hover:rounded-3xl lg:focus-visible:flex-[1.8] lg:focus-visible:rounded-3xl"
           >
             {/* The photo keeps its size and position in both states. */}
             <div
@@ -71,8 +92,8 @@ export function Team() {
               />
             </div>
 
-            {/* Slides up over the bottom of the photo on hover. */}
-            <div className="bg-primary-3 absolute inset-x-0 bottom-0 translate-y-full px-5 pt-4 pb-6 text-center transition-transform duration-500 ease-out lg:group-hover:translate-y-0 lg:group-focus-visible:translate-y-0">
+            {/* Slides up over the bottom of the photo: hover on desktop, tap on touch. */}
+            <div className="bg-primary-3 absolute inset-x-0 bottom-0 translate-y-full px-5 pt-4 pb-6 text-center transition-transform duration-500 ease-out group-data-open:translate-y-0 lg:group-hover:translate-y-0 lg:group-focus-visible:translate-y-0">
               <h3 className="font-display text-h5 text-primary-1">
                 {member.name}
               </h3>

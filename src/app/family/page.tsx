@@ -11,10 +11,27 @@ import { FinalCta } from "@/components/sections/final-cta";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
+const TITLE = "Abode Family — A better way to find trusted domestic workers";
+const DESCRIPTION =
+  "Discover domestic workers with verified identities, relevant experience, and information that helps you make more informed hiring decisions.";
+
 export const metadata: Metadata = {
-  title: "Abode Family — A better way to find trusted domestic workers",
-  description:
-    "Discover domestic workers with verified identities, relevant experience, and information that helps you make more informed hiring decisions.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: "/family" },
+  openGraph: {
+    type: "website",
+    siteName: "Abode",
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/family",
+    locale: "en_NG",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 const NAV_START = [
