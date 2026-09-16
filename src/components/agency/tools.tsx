@@ -1,43 +1,48 @@
 import { Icon } from "@/components/ui/icon";
 import { Section, SectionHeading } from "@/components/ui/section";
 
+/**
+ * The Figma reuses several Abode Family descriptions here — they talk about
+ * households rather than agencies. These are rewritten for the agency audience;
+ * the titles are as designed.
+ */
 const TOOLS = [
   {
     icon: "discover",
     title: "Worker Management",
-    body: "Find workers based on the help your household needs.",
+    body: "Keep profiles, documents and records for every worker in one place.",
     width: "lg:w-[247px]",
   },
   {
     icon: "briefcase-24",
     title: "Recruitment and Hiring",
-    body: "Explore profiles, experience, verification and relevant trust information.",
+    body: "Match workers to client requests and track every hire through to placement.",
     width: "lg:w-[293px]",
   },
   {
     icon: "connect",
     inset: "inset-[8.33%]",
     title: "Client Management",
-    body: "Move forward with conversations and interviews.",
+    body: "Keep household relationships, requests and placement history organised.",
     width: "lg:w-[250px]",
   },
   {
     icon: "database",
     inset: "inset-x-[12.5%] top-[6.25%] bottom-0",
     title: "Digital Records",
-    body: "Find workers based on the help your household needs.",
+    body: "Replace notebooks and scattered spreadsheets with records you can search.",
     width: "lg:w-[247px]",
   },
   {
     icon: "trust",
     title: "Verification",
-    body: "Make a more informed hiring decision with the information you need.",
+    body: "Identity and background checks run centrally, so every worker is verified the same way.",
     width: "lg:w-[284px]",
   },
   {
     icon: "map-pin-review",
     title: "Workforce Visibility",
-    body: "Move forward with conversations and interviews.",
+    body: "See who is placed, who is available, and what needs your attention.",
     width: "lg:w-[250px]",
   },
 ];
