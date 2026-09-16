@@ -113,7 +113,7 @@ export function Hero() {
         <ServiceCard className="absolute top-0 left-[983px]" />
         <WorkerCard
           name="Edward T."
-          role="Plumber"
+          role="Driver"
           location="Lagos, Nigeria"
           photo="/images/worker-edward.jpg"
           className="absolute top-[130px] left-0"

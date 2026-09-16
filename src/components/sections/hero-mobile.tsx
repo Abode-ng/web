@@ -28,7 +28,7 @@ type MobileWorkerCardProps = {
 
 export function MobileWorkerCard({
   name = "Edward T.",
-  role = "Plumber",
+  role = "Driver",
   photo = "/images/worker-edward.jpg",
   className,
 }: MobileWorkerCardProps) {
