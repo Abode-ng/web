@@ -51,15 +51,15 @@ export function SiteHeader({
 }: SiteHeaderProps) {
   return (
     <header className="bg-surface-2 sticky top-0 z-50 py-4">
-      <div className="mx-auto flex h-[30px] w-[300px] items-center justify-between lg:h-[68px] lg:w-full lg:max-w-[1440px] lg:px-20">
+      <div className="mx-auto flex h-10 w-[300px] items-center justify-between lg:h-[68px] lg:w-full lg:max-w-[1440px] lg:px-20">
         <Link href="/" aria-label="Abode home" className="shrink-0">
           <Image
             src="/brand/abode-logo.png"
             alt="Abode"
-            width={112}
-            height={36}
+            width={796}
+            height={562}
             priority
-            className="h-[30px] w-[94px] lg:h-9 lg:w-28"
+            className="h-10 w-auto lg:h-12"
           />
         </Link>
 

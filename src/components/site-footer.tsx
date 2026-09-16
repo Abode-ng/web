@@ -48,9 +48,9 @@ export function SiteFooter() {
             <Image
               src="/brand/abode-logo-light.png"
               alt="Abode"
-              width={200}
-              height={66}
-              className="h-[66px] w-[200px] object-cover"
+              width={796}
+              height={562}
+              className="h-[66px] w-auto"
             />
             <p className="text-body-sm text-surface-2 lg:max-w-[236px]">
               Abode connects families, domestic workers, and agencies through a
