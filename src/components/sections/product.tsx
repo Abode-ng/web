@@ -77,7 +77,7 @@ const PRODUCTS: Product[] = [
       },
     ],
     cta: "Explore Abode Agency OS",
-    ctaHref: "#abode-agency-os",
+    ctaHref: "/agency",
   },
 ];
 

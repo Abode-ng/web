@@ -19,7 +19,7 @@ const DEFAULT_LINKS_END: NavItem[] = [
 
 const DEFAULT_PRODUCTS: NavItem[] = [
   { label: "Abode Family", href: "/family" },
-  { label: "Abode Agency OS", href: "/#abode-agency-os" },
+  { label: "Abode Agency OS", href: "/agency" },
 ];
 
 function NavLink({ label, href }: NavItem) {
