@@ -110,7 +110,7 @@ export function FamilyHero() {
         <ServiceCard className="absolute top-0 left-[983px]" />
         <WorkerCard
           name="Mary E."
-          role="Maths Tutor"
+          role="Nanny"
           location="Lagos, Nigeria"
           photo="/images/worker-mary.jpg"
           className="absolute top-[130px] left-0"

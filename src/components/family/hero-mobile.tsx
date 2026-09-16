@@ -50,7 +50,7 @@ export function FamilyHeroCompositionMobile({
 
       <MobileWorkerCard
         name="Mary E."
-        role="Maths Tutor"
+        role="Nanny"
         photo="/images/worker-mary.jpg"
         className="top-0 left-0"
       />

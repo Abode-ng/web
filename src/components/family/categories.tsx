@@ -62,6 +62,10 @@ export function FamilyCategories() {
           </article>
         ))}
       </div>
+
+      <p className="text-body-sm text-ink-2 lg:text-body-lg text-center">
+        Gatemen, security, gardeners and many more — verified the same way.
+      </p>
     </Section>
   );
 }
