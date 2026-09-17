@@ -30,6 +30,8 @@ The Abode marketing site, built to a Figma design (file key `BxuYCVNvZrVyS4FpxmQ
 
 Subdomains (`app.`, `agency.`) are planned via middleware host rewrites into route folders — not implemented yet.
 
+GA4 is wired into the root layout but **only reports when `VERCEL_ENV` is `production`** (`src/lib/analytics.ts`) — a preview deploy or `next dev` sends nothing, deliberately, so don't debug a missing pageview locally.
+
 ## Architecture
 
 Page files (`src/app/*/page.tsx`) are thin: they set metadata and compose section components in order. Sections live in `src/components/sections` (landing) and `src/components/family`; shared primitives in `src/components/ui`. `SiteHeader` and `SiteFooter` are shared and take props so each page supplies its own nav links and CTA.
