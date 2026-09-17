@@ -20,12 +20,22 @@ const ROUTES: Array<{
   { path: "/agency", changeFrequency: "monthly", priority: 0.9 },
 ];
 
+/**
+ * `new URL("/", origin)` keeps a trailing slash, but Next renders the home
+ * page's canonical tag as the bare origin. The two are equivalent per RFC 3986,
+ * but matching them keeps one spelling of the home page in Search Console.
+ */
+function absolute(path: string): string {
+  const url = new URL(path, siteUrl);
+  return url.pathname === "/" ? url.origin : url.toString();
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   // The pages are statically prerendered, so "last modified" is the build time.
   const lastModified = new Date();
 
   return ROUTES.map(({ path, changeFrequency, priority }) => ({
-    url: new URL(path, siteUrl).toString(),
+    url: absolute(path),
     lastModified,
     changeFrequency,
     priority,
