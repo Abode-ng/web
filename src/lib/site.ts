@@ -1,13 +1,11 @@
 /**
- * The site's absolute base URL. Share previews, the sitemap and robots.txt all
- * need real absolute URLs, so they must agree on one origin.
+ * The site's absolute base URL. Canonical tags, share previews, sitemap.xml and
+ * robots.txt all resolve against it, so they must agree on one origin.
  *
- * Set `NEXT_PUBLIC_SITE_URL` to the custom domain once it is live. Until then
- * Vercel's own production URL is used, which keeps preview deployments honest
- * without pointing crawlers at a domain that does not resolve yet.
+ * The production domain is the default rather than a fallback to the deployment
+ * URL: a preview build should point its canonical tags at production, which is
+ * what stops Google indexing a preview as a duplicate of the real site. Set
+ * NEXT_PUBLIC_SITE_URL in `.env.local` when you need local absolute URLs.
  */
 export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000");
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://abodetechnology.com";
