@@ -21,23 +21,31 @@ const COLUMNS = [
     heading: "For Agencies",
     links: ["Agency OS", "Manage Workers", "Recruitment", "Client Management"],
   },
-  {
-    heading: "Company",
-    links: ["About Abode", "Careers", "Contact", "Resources"],
-  },
-  {
-    heading: "Legal",
-    links: ["Privacy Policy", "Terms of Service", "Safety", "Help Centre"],
-  },
+  // Commented out until the pages behind them exist. Every link in the footer
+  // currently points at #contact, which is tolerable for product nav but not
+  // for these two: "Privacy Policy" and "Terms of Service" that scroll you to a
+  // CTA band read as broken trust, and they are the links a visitor goes
+  // looking for precisely when they want to check something. Restore each row
+  // as its destination ships.
+  // {
+  //   heading: "Company",
+  //   links: ["About Abode", "Careers", "Contact", "Resources"],
+  // },
+  // {
+  //   heading: "Legal",
+  //   links: ["Privacy Policy", "Terms of Service", "Safety", "Help Centre"],
+  // },
 ];
 
-const SOCIALS = [
-  { name: "social-facebook", label: "Facebook" },
-  { name: "social-whatsapp", label: "WhatsApp" },
-  { name: "social-linkedin", label: "LinkedIn" },
-  { name: "social-instagram", label: "Instagram" },
-  { name: "social-twitter", label: "X" },
-];
+// Commented out alongside the icon row below: the profiles these point to do
+// not exist yet, so all five were links to #contact wearing a Facebook badge.
+// const SOCIALS = [
+//   { name: "social-facebook", label: "Facebook" },
+//   { name: "social-whatsapp", label: "WhatsApp" },
+//   { name: "social-linkedin", label: "LinkedIn" },
+//   { name: "social-instagram", label: "Instagram" },
+//   { name: "social-twitter", label: "X" },
+// ];
 
 export function SiteFooter() {
   return (
@@ -56,6 +64,7 @@ export function SiteFooter() {
               Abode connects families, domestic workers, and agencies through a
               more trusted and transparent ecosystem.
             </p>
+            {/* Social icons hidden until the profiles exist — see SOCIALS above.
             <div className="flex w-full items-center justify-between lg:w-[236px]">
               {SOCIALS.map((social) => (
                 <Link
@@ -68,6 +77,7 @@ export function SiteFooter() {
                 </Link>
               ))}
             </div>
+            */}
           </div>
 
           <div className="flex items-center gap-2">
