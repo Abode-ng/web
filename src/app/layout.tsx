@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Instrument_Sans } from "next/font/google";
+
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -15,16 +17,6 @@ const instrumentSans = Instrument_Sans({
 const TITLE = "Abode — Building a more trusted future for domestic work";
 const DESCRIPTION =
   "Abode is building the infrastructure that helps households, domestic workers, and recruitment agencies work with greater trust, safety, and professionalism.";
-
-/**
- * Absolute URLs are required for share previews. Set NEXT_PUBLIC_SITE_URL once
- * the domain is live; until then Vercel's own URL is used for previews.
- */
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000");
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -20,12 +20,15 @@ There are no tests. `npm run build` is the gate before calling work done.
 
 ## What this is
 
-The Abode marketing site, built to a Figma design (file key `BxuYCVNvZrVyS4FpxmQfr2`). Two routes, both static:
+The Abode marketing site, built to a Figma design (file key `BxuYCVNvZrVyS4FpxmQfr2`). Three routes, all static:
 
 - `/` — marketing landing. Desktop node `3:2`, mobile node `123:165`.
 - `/family` — Abode Family product page. Desktop node `61:651`, mobile node `123:685`.
+- `/agency` — Abode Agency OS product page.
 
-A future `/agency` (Abode Agency OS) page is designed but not built. Subdomains (`app.`, `agency.`) are planned via middleware host rewrites into route folders — not implemented yet.
+`src/app/sitemap.ts` lists those routes by hand — a new page needs a line there too, or crawlers will only reach it by following links. It, `robots.ts` and every canonical and share URL resolve against `siteUrl` in `src/lib/site.ts`, which reads `NEXT_PUBLIC_SITE_URL`.
+
+Subdomains (`app.`, `agency.`) are planned via middleware host rewrites into route folders — not implemented yet.
 
 ## Architecture
 
