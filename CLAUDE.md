@@ -30,7 +30,7 @@ The Abode marketing site, built to a Figma design (file key `BxuYCVNvZrVyS4FpxmQ
 
 Subdomains (`app.`, `agency.`) are planned via middleware host rewrites into route folders — not implemented yet.
 
-GA4 is wired into the root layout but **only reports when `VERCEL_ENV` is `production`** (`src/lib/analytics.ts`) — a preview deploy or `next dev` sends nothing, deliberately, so don't debug a missing pageview locally.
+GA4 is wired into the root layout but reports only when **`VERCEL_ENV` is `production` and `NEXT_PUBLIC_GA_ID` is set** (`src/lib/analytics.ts`) — a preview deploy, a fork, or `next dev` sends nothing, deliberately. Don't debug a missing pageview locally. **This repo is public**, so the ID lives in Vercel's project settings, not in the tree.
 
 ## Architecture
 

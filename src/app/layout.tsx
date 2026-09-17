@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Manrope, Instrument_Sans } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
-import { GA_MEASUREMENT_ID, analyticsEnabled } from "@/lib/analytics";
+import { analytics } from "@/lib/analytics";
 import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -67,7 +67,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </div>
       </body>
-      {analyticsEnabled ? <GoogleAnalytics gaId={GA_MEASUREMENT_ID} /> : null}
+      {analytics ? <GoogleAnalytics gaId={analytics.gaId} /> : null}
     </html>
   );
 }

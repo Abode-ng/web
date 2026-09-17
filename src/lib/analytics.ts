@@ -1,16 +1,21 @@
 /**
- * The GA4 measurement ID is not a secret — it ships in the client bundle and is
- * readable in page source — so it lives here rather than in an env var that
- * would also have to be remembered in Vercel's dashboard, where forgetting it
- * fails silently as "no data". NEXT_PUBLIC_GA_ID still overrides it if a second
- * property is ever needed.
+ * GA4 measurement ID, from the environment because this repository is public.
+ * The ID is not a secret — it ships in the page source, and NEXT_PUBLIC_ means
+ * it is inlined into the client bundle either way — but keeping it out of the
+ * repo stops a fork's deployment reporting into our property, which GA4 gives
+ * no way to filter out after the fact.
+ *
+ * Set it in Vercel's project settings, not just `.env.local`.
  */
-export const GA_MEASUREMENT_ID =
-  process.env.NEXT_PUBLIC_GA_ID ?? "G-BQXSSLW5BC";
+const measurementId = process.env.NEXT_PUBLIC_GA_ID;
 
 /**
- * Only the production deployment reports. Preview builds and `next dev` would
- * otherwise mix development traffic into the same property, and GA4 has no way
- * to separate it back out after the fact.
+ * Only the production deployment reports: preview builds and `next dev` would
+ * otherwise mix development traffic into the same property. Missing IDs are
+ * treated as "off" so a build without the variable renders no tag at all rather
+ * than an unconfigured one.
  */
-export const analyticsEnabled = process.env.VERCEL_ENV === "production";
+export const analytics =
+  process.env.VERCEL_ENV === "production" && measurementId
+    ? { gaId: measurementId }
+    : null;
