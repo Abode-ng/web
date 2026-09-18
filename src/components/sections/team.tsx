@@ -32,6 +32,9 @@ const TEAM = [
   },
   {
     name: "Onifade David",
+    // The share link carried utm_source/utm_content/utm_medium, which only tell
+    // LinkedIn that the URL was copied from the Android app. Stripped.
+    href: "https://www.linkedin.com/in/david-onifade-9b2b60307",
     role: "Operations & Communication Lead",
     bio: "Keeps the team aligned on priorities and deliverables, tracks what each person is working on, and drives internal momentum. Leads Abode's external voice: pitching at conferences and competitions, and managing client engagement.",
     src: "/images/team-3.png",
