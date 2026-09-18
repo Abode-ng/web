@@ -45,7 +45,7 @@ const TEAM = [
     role: "Content & Social Media Strategist",
     bio: "Writes and produces the content that appears across Abode's channels, and shapes how the brand sounds in public. Turns what the company is building with families, workers, and agencies into stories people want to follow.",
     src: "/images/team-5.png",
-    ratio: "1 / 1",
+    ratio: "432 / 479",
   },
   {
     name: "Alika David",
