@@ -16,6 +16,7 @@ import { Section, SectionHeading } from "@/components/ui/section";
 const TEAM = [
   {
     name: "Gboyega Temiloluwa",
+    href: "https://temiloluwa-gboyega-profile.vercel.app/",
     role: "Technical Co-founder & CEO",
     bio: "Leads the company's overall vision, strategy, and product development. Responsible for key business and technical decisions, overseeing product development, and ensuring the team remains focused on solving the right problems.",
     src: "/images/team-1.png",
@@ -67,9 +68,7 @@ export function Team() {
             aria-expanded={openIndex === index}
             aria-label={`${member.name}, ${member.role}`}
             data-open={openIndex === index ? "" : undefined}
-            onClick={() =>
-              setOpenIndex(openIndex === index ? null : index)
-            }
+            onClick={() => setOpenIndex(openIndex === index ? null : index)}
             onKeyDown={(event) => {
               if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
@@ -95,7 +94,24 @@ export function Team() {
             {/* Slides up over the bottom of the photo: hover on desktop, tap on touch. */}
             <div className="bg-primary-3 absolute inset-x-0 bottom-0 translate-y-full px-5 pt-4 pb-6 text-center transition-transform duration-500 ease-out group-data-open:translate-y-0 lg:group-hover:translate-y-0 lg:group-focus-visible:translate-y-0">
               <h3 className="font-display text-h5 text-primary-1">
-                {member.name}
+                {member.href ? (
+                  /*
+                   * The card itself is the toggle, so the link has to stop the
+                   * click bubbling — otherwise opening a profile also collapses
+                   * the panel it was clicked from.
+                   */
+                  <a
+                    href={member.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(event) => event.stopPropagation()}
+                    className="underline-offset-4 hover:underline"
+                  >
+                    {member.name}
+                  </a>
+                ) : (
+                  member.name
+                )}
               </h3>
               <p className="font-display text-h6 text-ink-1 mt-0.5">
                 {member.role}

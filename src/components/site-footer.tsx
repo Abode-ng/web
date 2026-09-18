@@ -3,49 +3,44 @@ import Link from "next/link";
 
 import { Icon } from "@/components/ui/icon";
 
-const COLUMNS = [
+type FooterLink = { label: string; href: string };
+
+const COLUMNS: { heading: string; links: FooterLink[] }[] = [
   {
     heading: "For Families",
-    links: ["Find a Worker", "How it Works", "Pricing", "Safety & Trust"],
-  },
-  {
-    heading: "For Workers",
     links: [
-      "Find Opportunities",
-      "Build Your Profile",
-      "Verification",
-      "Worker Resources",
+      { label: "Find a Worker", href: "/family#categories" },
+      { label: "How it Works", href: "/family#how-it-works" },
+      { label: "Pricing", href: "/family#pricing" },
+      { label: "Safety & Trust", href: "/family#trust" },
     ],
   },
+  // "For Workers" removed: there is no worker page, and none of its four rows
+  // had a section to land on anywhere on the site.
   {
     heading: "For Agencies",
-    links: ["Agency OS", "Manage Workers", "Recruitment", "Client Management"],
+    links: [
+      { label: "Agency OS", href: "/agency" },
+      // The last three are all tool cards inside the same grid, so they share
+      // an anchor rather than pretending to separate destinations.
+      { label: "Manage Workers", href: "/agency#platform" },
+      { label: "Recruitment", href: "/agency#platform" },
+      { label: "Client Management", href: "/agency#platform" },
+    ],
   },
-  // Commented out until the pages behind them exist. Every link in the footer
-  // currently points at #contact, which is tolerable for product nav but not
-  // for these two: "Privacy Policy" and "Terms of Service" that scroll you to a
-  // CTA band read as broken trust, and they are the links a visitor goes
-  // looking for precisely when they want to check something. Restore each row
-  // as its destination ships.
+  // Commented out until the pages behind them exist. "Privacy Policy" and
+  // "Terms of Service" that scroll you to a CTA band read as broken trust, and
+  // they are the links a visitor goes looking for precisely when they want to
+  // check something. Restore each row as its destination ships.
   // {
   //   heading: "Company",
-  //   links: ["About Abode", "Careers", "Contact", "Resources"],
+  //   links: [{ label: "About Abode", href: "/#about" }],
   // },
   // {
   //   heading: "Legal",
-  //   links: ["Privacy Policy", "Terms of Service", "Safety", "Help Centre"],
+  //   links: [{ label: "Privacy Policy", href: "/privacy" }],
   // },
 ];
-
-// Commented out alongside the icon row below: the profiles these point to do
-// not exist yet, so all five were links to #contact wearing a Facebook badge.
-// const SOCIALS = [
-//   { name: "social-facebook", label: "Facebook" },
-//   { name: "social-whatsapp", label: "WhatsApp" },
-//   { name: "social-linkedin", label: "LinkedIn" },
-//   { name: "social-instagram", label: "Instagram" },
-//   { name: "social-twitter", label: "X" },
-// ];
 
 export function SiteFooter() {
   return (
@@ -88,7 +83,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-14 sm:grid sm:grid-cols-2 lg:flex lg:flex-1 lg:flex-row lg:justify-between lg:gap-10 lg:pl-20">
+        <div className="flex flex-col gap-14 sm:grid sm:grid-cols-2 lg:flex lg:flex-1 lg:flex-row lg:justify-end lg:gap-28 lg:pl-20">
           {COLUMNS.map((column) => (
             <div
               key={column.heading}
@@ -97,11 +92,11 @@ export function SiteFooter() {
               <p className="font-display text-h5">{column.heading}</p>
               {column.links.map((link) => (
                 <Link
-                  key={link}
-                  href="#contact"
+                  key={link.label}
+                  href={link.href}
                   className="text-body transition-opacity hover:opacity-70"
                 >
-                  {link}
+                  {link.label}
                 </Link>
               ))}
             </div>
