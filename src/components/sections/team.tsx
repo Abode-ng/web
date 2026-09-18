@@ -41,6 +41,13 @@ const TEAM = [
     ratio: "1 / 1",
   },
   {
+    name: "Iseoluwa Obasa",
+    role: "Content & Social Media Strategist",
+    bio: "Writes and produces the content that appears across Abode's channels, and shapes how the brand sounds in public. Turns what the company is building with families, workers, and agencies into stories people want to follow.",
+    src: "/images/team-5.png",
+    ratio: "1 / 1",
+  },
+  {
     name: "Alika David",
     href: "https://dribbble.com/davidalika",
     role: "Product Design Lead",
