@@ -28,17 +28,18 @@ const COLUMNS: { heading: string; links: FooterLink[] }[] = [
       { label: "Client Management", href: "/agency#platform" },
     ],
   },
-  // Commented out until the pages behind them exist. "Privacy Policy" and
-  // "Terms of Service" that scroll you to a CTA band read as broken trust, and
-  // they are the links a visitor goes looking for precisely when they want to
-  // check something. Restore each row as its destination ships.
+  {
+    // Only the row whose page exists. Terms of Service, Safety and Help Centre
+    // stay out until there is something to open — a legal link that goes
+    // nowhere is read at exactly the moment someone is checking whether to
+    // trust you.
+    heading: "Legal",
+    links: [{ label: "Privacy Policy", href: "/privacy" }],
+  },
+  // Restore when these exist:
   // {
   //   heading: "Company",
   //   links: [{ label: "About Abode", href: "/#about" }],
-  // },
-  // {
-  //   heading: "Legal",
-  //   links: [{ label: "Privacy Policy", href: "/privacy" }],
   // },
 ];
 

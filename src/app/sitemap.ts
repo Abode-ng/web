@@ -18,6 +18,7 @@ const ROUTES: Array<{
   { path: "/", changeFrequency: "monthly", priority: 1 },
   { path: "/family", changeFrequency: "monthly", priority: 0.9 },
   { path: "/agency", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
 ];
 
 /**
