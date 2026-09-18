@@ -38,6 +38,7 @@ const TEAM = [
   },
   {
     name: "Alika David",
+    href: "https://dribbble.com/davidalika",
     role: "Product Design Lead",
     bio: "Leads Abode's product design and user experience. Responsible for translating user needs and business goals into intuitive digital experiences, overseeing the design system, and ensuring the product remains clear, consistent, and aligned with Abode's vision.",
     src: "/images/team-4.png",
