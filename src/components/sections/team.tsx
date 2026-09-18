@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
+import { Icon } from "@/components/ui/icon";
 import { Section, SectionHeading } from "@/components/ui/section";
 
 /**
@@ -106,9 +107,10 @@ export function Team() {
                     target="_blank"
                     rel="noreferrer"
                     onClick={(event) => event.stopPropagation()}
-                    className="underline-offset-4 hover:underline"
+                    className="inline-flex items-baseline gap-1 underline decoration-1 underline-offset-4 opacity-100 transition-opacity hover:opacity-70"
                   >
                     {member.name}
+                    <Icon name="arrow-up-right-dark" size={14} />
                   </a>
                 ) : (
                   member.name
